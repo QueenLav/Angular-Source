@@ -1,0 +1,444 @@
+<div class="header pb-8 pt-8 pt-md-8">
+  <div class="container-fluid">
+
+  </div>
+</div>
+  
+<!-- Page content -->
+<div class="container margin-nav">
+
+  <div class="sub-header">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Welcome {{name}} <span class="badge badge-secondary cursor" style="font-size: small;">{{role}}</span></h1>  
+        <span>Dashboard / Config</span>
+      </div>
+    </div>
+  </div>
+
+ 
+  <div class="row">
+    <div class="col-xl-4">
+      <div class="card shadow">
+
+        <div class="row">
+          <div class="col">
+            <div class="card-header border-0">
+              <h3 class="mb-0">Email Configuration</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-fluid">
+        
+          <form [formGroup]="emailForm" (ngSubmit)="emailConfigSubmit()">
+          
+            <div class="form-group mb-3">
+              <label for="sender_mail">Sender Email: </label>
+              <input class="form-control" formControlName="sender_mail" type="text" name="sender_mail">
+                <!-- <span class="text-danger"
+                  *ngIf="(emailForm.controls.sender_mail.touched || emailSubmit) && emailForm.controls.sender_mail.errors?.required">
+                  Sender Email is required
+                </span> -->
+            </div>
+            <div class="form-group mb-3">
+              <label for="from_name">From Name: </label>
+              <input class="form-control" formControlName="from_name" type="text" name="from_name">
+                <!-- <span class="text-danger"
+                  *ngIf="(emailForm.controls.from_name.touched || emailSubmit) && emailForm.controls.from_name.errors?.required">
+                  From Name Email is required
+                </span> -->
+            </div>
+            <div class="form-group mb-3">
+              <label for="smtp_host">SMTP Host : </label>
+              <input class="form-control" formControlName="smtp_host" type="text" name="smtp_host">
+                <!-- <span class="text-danger"
+                  *ngIf="(emailForm.controls.smtp_host.touched || emailSubmit) && emailForm.controls.smtp_host.errors?.required">
+                  SMTP Host is required
+                </span> -->
+            </div>
+            <div class="form-group mb-3">
+              <label for="smtp_type">Type of Encryption / Security: </label>
+              <input type="radio" formControlName="smtp_type" name="smtp_type" value="ssl" class="ml-4">
+              <label for="smtp_type" class="mr-4 ml-1">SSL</label>
+              <input type="radio"  formControlName="smtp_type" name="smtp_type" value="tls">
+              <label for="smtp_type" class="mr-4 ml-1">TLS</label>
+              <input type="radio" formControlName="smtp_type" name="smtp_type" value="none">
+              <label for="smtp_type" class="ml-1">None</label>
+                <!-- <span class="text-danger"
+                  *ngIf="(emailForm.controls.smtp_type.touched || emailSubmit) && emailForm.controls.smtp_type.errors?.required">
+                  SMTP Type is required
+                </span> -->
+            </div>
+            <div class="form-group mb-3">
+              <label for="smtp_port">SMTP Port : </label>
+              <input class="form-control" formControlName="smtp_port" type="text" name="smtp_port">
+                <!-- <span class="text-danger"
+                  *ngIf="(emailForm.controls.smtp_port.touched || emailSubmit) && emailForm.controls.smtp_port.errors?.required">
+                  SMTP Port is required
+                </span> -->
+            </div>
+            <div class="form-group mb-3">
+              <label for="smtp_auth">SMTP Authentication: </label>
+              <input type="radio" formControlName="smtp_auth" name="smtp_auth" value="true" class="ml-4">
+              <label for="smtp_auth" class="mr-4 ml-1">True</label>
+              <input type="radio" formControlName="smtp_auth" name="smtp_auth" value="false">
+              <label for="smtp_auth" class="ml-1">False</label>
+                <!-- <span class="text-danger"
+                  *ngIf="(emailForm.controls.smtp_auth.touched || emailSubmit) && emailForm.controls.smtp_auth.errors?.required">
+                  SMTP Authentication is required
+                </span> -->
+            </div>
+            <div class="form-group mb-3">
+              <label for="smtp_username">SMTP Username : </label>
+              <input class="form-control" formControlName="smtp_username" type="text" name="smtp_username">
+                <!-- <span class="text-danger"
+                  *ngIf="(emailForm.controls.smtp_username.touched || emailSubmit) && emailForm.controls.smtp_username.errors?.required">
+                  SMTP Username Email is required
+                </span> -->
+            </div>
+            <div class="form-group mb-3">
+              <label for="smtp_password">SMTP Password : </label>
+              <input class="form-control" formControlName="smtp_password" type="password" name="smtp_password">
+                <!-- <span class="text-danger"
+                  *ngIf="(emailForm.controls.smtp_password.touched || emailSubmit) && emailForm.controls.smtp_password.errors?.required">
+                  SMTP Password is required
+                </span> -->
+            </div>
+      
+            <button *ngIf="checkScope('edit_config') == true" type="submit" class="btn btn-primary my-4">Update</button>    
+          
+          </form>
+      
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8">
+      <div class="row">
+        <div class="col">
+          <div class="sms-container">
+            <div class="card shadow">
+              <div class="row">
+                <div class="col">
+                  <div class="card-header border-0">
+                    <h3 class="mb-0">SMS Configuration</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="container-fluid">
+                <form [formGroup]="smsForm" (ngSubmit)="smsConfigSubmit()">
+                  <div class="form-group mb-3">
+                    <label for="username">Username: </label>
+                    <input class="form-control" formControlName="username" type="text" name="username">
+                      <span class="text-danger"
+                        *ngIf="(smsForm.controls.username.touched || smsSubmit) && smsForm.controls.username.errors?.required">
+                        Username is required
+                      </span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="password">Password: </label>
+                    <input class="form-control" formControlName="password" type="password" name="password">
+                      <span class="text-danger"
+                        *ngIf="(smsForm.controls.password.touched || smsSubmit) && smsForm.controls.password.errors?.required">
+                        Password is required
+                      </span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="sender_id">Sender ID: </label>
+                    <input class="form-control" formControlName="sender_id" type="text" name="sender_id">
+                      <span class="text-danger"
+                        *ngIf="(smsForm.controls.sender_id.touched || smsSubmit) && smsForm.controls.sender_id.errors?.required">
+                        Sender ID is required
+                      </span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="auth_key">Authentication Key: </label>
+                    <input class="form-control" formControlName="auth_key" type="text" name="auth_key">
+                      <span class="text-danger"
+                        *ngIf="(smsForm.controls.auth_key.touched || smsSubmit) && smsForm.controls.auth_key.errors?.required">
+                        Auth Key is required
+                      </span>
+                  </div>
+                  <button *ngIf="checkScope('edit_config') == true" type="submit" class="btn btn-primary my-4">Update</button>  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-xl-6">
+          <div class="card shadow" style="margin: 20px 0px;">
+            <div class="container-fluid">
+              <form >
+                  <h4>Facbook Configuration</h4>
+                  <div class="row mb-3">
+                      <div class="col-sm-4">
+                          <label>Social Login ID :</label>
+                      </div> 
+                      <div class="col-sm-8">
+                          <input class="form-control" type="text" value="322558735297480"> 
+                      </div>
+                  </div>
+                  <div class="row mb-3">
+                  <div class="col-sm-4">
+                      <label>Version :</label>
+                  </div> 
+                  <div class="col-sm-8">
+                      <input class="form-control" type="text" value="v3.3"> 
+                  </div>
+                  </div>
+                  <div class="row mb-3">
+                  <div class="col-sm-4">
+                      <label>Status :</label>
+                  </div> 
+                  <div class="col-sm-8">
+                      <select name="game_type" class="form-control">
+                          <option [ngValue]="" selected>Active</option>
+                          <option [ngValue]="">InActive</option>
+                          </select> 
+                  </div>
+                  </div>
+                  <div style="margin: 30px;">
+                  <button *ngIf="checkScope('edit_config') == true" type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Submit</button>  
+                  </div>
+              </form>                 
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="card shadow"  style="margin: 20px 0px;">
+            <div class="container-fluid">
+              <form >
+                <h4>Google Configuration</h4>
+                <div class="row mb-3">
+                <div class="col-sm-4">
+                    <label>Social Login ID :</label>
+                </div> 
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" value="376276911976-ai0n310h1be2mb4bhhii6ht32hnekt2i.apps.googleusercontent.com"> 
+                </div>
+                </div>
+                <div class="row mb-3">
+                <div class="col-sm-4">
+                    <label>Status :</label>
+                </div> 
+                <div class="col-sm-8">
+                    <select name="game_type" class="form-control">
+                        <option [ngValue]="" selected>Active</option>
+                        <option [ngValue]="">InActive</option>
+                    </select> 
+                </div>
+                </div>
+                <div style="margin: 30px;">
+                <button *ngIf="checkScope('edit_config') == true" type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Submit</button>  
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+
+
+  
+
+  <!-- <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="container-fluid">
+
+            <div class="row">
+                <div class="col">
+
+                    <form >
+                        <h4>Payment Gateway Cash Free Configuration</h4>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Client ID :</label>
+                            </div> 
+                            <div class="col-sm-8">
+                                <input type="text" value="5908ceca9cc9c5a98852a30e8095"> 
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-4">
+                            <label>Client Secrate Key :</label>
+                        </div> 
+                        <div class="col-sm-8">
+                            <input type="text" value="fd42e0aed800543dd7707f6accf0879b206f074f"> 
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-4">
+                            <label>Mode :</label>
+                        </div> 
+                        <div class="col-sm-8">
+                            <select name="game_type">
+                                <option [ngValue]="" selected>Live</option>
+                                <option [ngValue]="">Testing</option>
+                                </select> 
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-4">
+                            <label>Status :</label>
+                        </div> 
+                        <div class="col-sm-8">
+                            <select name="game_type">
+                                <option [ngValue]="" selected>Active</option>
+                                <option [ngValue]="">InActive</option>
+                                </select> 
+                        </div>
+                        </div>
+                        <div style="margin: 30px;">
+                        <button type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Update</button>  
+                        </div>
+                    </form>
+
+                </div>
+                <div class="col">
+
+                    <form >
+                        <h4>Payment Gateway Paytm Configuration</h4>
+                        <div class="row">
+                        <div class="col-sm-4">
+                            <label>Merchant ID :</label>
+                        </div> 
+                        <div class="col-sm-8">
+                            <input type="text" value="XYSgIO85997661938432"> 
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-4">
+                            <label>Merchant Key :</label>
+                        </div> 
+                        <div class="col-sm-8">
+                            <input type="text" value="QXB7!DNXmmaGqXF#"> 
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-4">
+                            <label>Mode :</label>
+                        </div> 
+                        <div class="col-sm-8">
+                            <select name="game_type">
+                                <option [ngValue]="" selected>Live</option>
+                                <option [ngValue]="">Testing</option>
+                                </select> 
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-4">
+                            <label>Status :</label>
+                        </div> 
+                        <div class="col-sm-8">
+                            <select name="game_type">
+                                <option [ngValue]="" selected>Active</option>
+                                <option [ngValue]="">InActive</option>
+                                </select> 
+                        </div>
+                        </div>
+                        <div style="margin: 30px;">
+                        <button type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Update</button>  
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            
+          
+            
+          </div>
+          
+            
+        </div>
+        </div>
+  </div> -->
+
+  <!-- <div class="row">
+      <div class="col">
+        <div class="card shadow">
+  
+          <div class="row">
+            <div class="col">
+              <div class="card-header border-0">
+                <h3 class="mb-0">IP Configuration</h3>
+              </div>
+            </div>
+          </div>
+  
+          <div class="container-fluid">
+            
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <label for="game_ip_address">Game IP Address: </label>
+                    <input class="form-control" formControlName="game_ip_address" type="text" name="game_ip_address">
+                    <p style="color: blue;">Ex.127.0.0.2</p>
+                    <span class="text-danger"
+                      *ngIf="(form.controls.game_ip_address.touched || submit) && form.controls.game_ip_address.errors?.required">
+                      Game IP Address is required
+                    </span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="game_port_number">Game Port Number: </label>
+                    <input class="form-control" formControlName="game_port_number" type="text" name="game_port_number">
+                    <span class="text-danger"
+                      *ngIf="(form.controls.game_port_number.touched || submit) && form.controls.game_port_number.errors?.required">
+                      Game Port is required
+                    </span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="game_domain_name">Game Domain Name : </label>
+                    <input class="form-control" formControlName="game_domain_name" type="text" name="game_domain_name">
+                    <p style="color: blue;">Ex.http://domainname.com:3030</p>
+                    <span class="text-danger"
+                      *ngIf="(form.controls.game_domain_name.touched || submit) && form.controls.game_domain_name.errors?.required">
+                      Game Domain is required
+                    </span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="tourney_ip_address">Tournament IP Address : </label>
+                    <input class="form-control" formControlName="tourney_ip_address" type="text" name="tourney_ip_address">
+                    <p style="color: blue;">Ex.127.0.0.2</p>
+                    <span class="text-danger"
+                      *ngIf="(form.controls.tourney_ip_address.touched || submit) && form.controls.tourney_ip_address.errors?.required">
+                      Tourney IP Address is required
+                    </span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="tourney_port_number">Tournament Port Number : </label>
+                    <input class="form-control" formControlName="tourney_port_number" type="text" name="tourney_port_number">
+                    <span class="text-danger"
+                      *ngIf="(form.controls.tourney_port_number.touched || submit) && form.controls.tourney_port_number.errors?.required">
+                      Tourney Port is required
+                    </span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="tourney_domain_name">Tournament Domain Name : </label>
+                    <input class="form-control" formControlName="tourney_domain_name" type="text" name="tourney_domain_name">
+                    <p style="color: blue;">Ex.http://domainname.com:3030</p>
+                    <span class="text-danger"
+                      *ngIf="(form.controls.tourney_domain_name.touched || submit) && form.controls.tourney_domain_name.errors?.required">
+                      Tourney Domain is required
+                    </span>
+                  </div>
+                </div> 
+              </div>
+        
+              <button type="submit" class="btn btn-primary my-4">Update</button>  
+            
+            </form>
+              
+          </div>
+        </div>
+      </div>
+  </div> -->
+
+    
+  
+</div>

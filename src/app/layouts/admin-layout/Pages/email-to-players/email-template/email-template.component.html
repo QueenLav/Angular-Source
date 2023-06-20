@@ -1,0 +1,121 @@
+<div class="header pb-8 pt-8 pt-md-8">
+  <div class="container-fluid">
+
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="container margin-nav">
+
+  <div class="sub-header">
+    <div class="row">
+      <div class="col-sm-7">
+        <h1>Welcome {{name}} <span class="badge badge-secondary cursor" style="font-size: small;">{{role}}</span></h1>  
+        <span>Dashboard / Email / Template's</span>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="row">
+          <div class="col">
+            <div class="card-sub-header border-0">
+              <label for="per-page">Show: </label>
+              <select id="per-page" (change)="onLimitChange($event.target.value)" > 
+                <option *ngFor="let option of pageLimitOptions" [value]="option.value" [selected]="option.value == currentPageLimit">
+                  {{ option.value }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card-sub-header border-0 left">
+              <label for="search">Search: </label>
+              <input type="text" class="search-input" (keyup)="updateFilter($event)"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <ngx-datatable 
+            
+            #usersTable 
+            [scrollbarH]="false"
+            class="material"             
+        
+            [limit]="10" 
+            [columnMode]="'force'" 
+            [headerHeight]="65"
+            [footerHeight]="50" 
+            [rowHeight]="'auto'"
+            
+            [rows]="getData" 
+
+            >
+
+              <!-- <ngx-datatable-column [draggable]="false" [resizeable]="false" name="S.No" [width]="'auto'">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
+                 {{rowIndex+1}}
+                </ng-template>
+              </ngx-datatable-column> -->
+
+              <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Template Type" prop="subject" [width]="'auto'">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <div class="fixlen" title="{{value}}" > {{value}} </div>
+                  <span class="badge rounded-pill bg-dark">{{row.type_mail}}</span>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Sender Name" prop="name" [width]="'auto'">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <div class="fixlen" title="{{value}}" > {{value}} </div>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false"  name="Action"  [width]="'auto'" *ngIf="checkScope('edit_mail_templates') == true">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <ng-template #edit>Edit</ng-template>
+                  <a class="btn btn-primary btn-icon-only" [ngbTooltip]="edit" placement="bottom" (click)="editData(row.id)">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                </ng-template>
+              </ngx-datatable-column>
+        
+              <div class="card-footer py-4">                
+                <ngx-datatable-footer>
+                  <ng-template
+                    let-rowCount="rowCount"
+                    let-pageSize="pageSize"
+                    let-selectedCount="selectedCount"
+                    let-curPage="curPage"
+                    let-offset="offset"
+                    ngx-datatable-footer-template>
+
+                    <span>&nbsp; Total : {{rowCount}}</span>
+
+                    <datatable-pager
+                      [pagerLeftArrowIcon]="'datatable-icon-left'"
+                      [pagerRightArrowIcon]="'datatable-icon-right'"
+                      [pagerPreviousIcon]="'datatable-icon-prev'"
+                      [pagerNextIcon]="'datatable-icon-skip'"
+                      [page]="curPage"
+                      [size]="pageSize"
+                      [count]="rowCount"
+                      [hidden]="!((rowCount / pageSize) > 1)"
+                      (change)="table.onFooterPage($event)">
+                    </datatable-pager>
+                       
+                  </ng-template>
+                </ngx-datatable-footer>
+              </div>   
+                       
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

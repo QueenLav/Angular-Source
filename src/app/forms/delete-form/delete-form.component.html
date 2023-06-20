@@ -1,0 +1,15 @@
+<div class="modal-body">
+  <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div style="text-align: center;">
+    <div class="row">
+      <div class="col-sm-12">
+        <p>Are You sure you want to delete this {{config.title}} ?</p>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-sm btn-danger mt-4" (click)="deleteData()">Delete</button>
+    <button type="submit" class="btn btn-sm btn-secondary mt-4" (click)="onClose()">Cancel</button>
+  </div>
+</div>
+  

@@ -1,0 +1,97 @@
+.profile-img{
+    width: 100%;
+    border-radius: 20%;
+}
+
+.modal{
+    background-color: rgb(197, 197, 197);
+}
+
+.content{
+    padding: 15px;
+}
+
+.content p{
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
+.content p small{
+    font-size: 12px;
+}
+
+.profile{
+    text-align: center;
+}
+
+.modal-header {
+    // background: linear-gradient(-45deg, #0d1342, #4057d8);
+    // color: #fff;
+    // display: flex;
+    // flex-wrap: wrap;
+    // align-items: center;
+    // justify-content: center;
+    // padding: 8px;
+    // border-top: 0 solid #e9ecef;
+    // border-top-right-radius: 0.4375rem;
+    // border-top-left-radius: 0.4375rem;
+}
+.modal-body {
+    padding: 0rem !important;
+}
+
+.modal-footer {
+    background: linear-gradient(-45deg, #0d1342, #4057d8);
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    border-top: 0 solid #e9ecef;
+    border-bottom-right-radius: 0.4375rem;
+    border-bottom-left-radius: 0.4375rem;
+}
+
+.close{
+    // color: #fff !important;
+}
+
+.profile-details{
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.admin_offline {
+    left: 235px;
+    top: 90px;
+    width: 18px;
+    height: 18px;
+}
+
+.admin_online {
+    left: 235px;
+    top: 90px;
+    width: 18px;
+    height: 18px;
+}
+
+.avatar img {
+    width: 200% !important;
+    border-radius: 50%;
+    border: 5px solid rgb(167, 166, 166) !important;
+}
+
+.admin_Inactive{
+    content: "";
+    background: url(/../assets/img/icon/block.png);
+    display: block;
+    position: absolute;
+    left: 145px;
+    top: 77px;
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+    background-size: cover;
+    border-radius: 0px;
+}

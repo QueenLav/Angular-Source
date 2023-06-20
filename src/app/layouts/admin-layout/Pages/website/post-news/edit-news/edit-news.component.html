@@ -1,0 +1,80 @@
+<div class="header pb-8 pt-8 pt-md-8">
+  <div class="container-fluid">
+
+  </div>
+</div>
+  
+ 
+<div class="container margin-nav">
+
+  <div class="sub-header">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Welcome {{name}} <span class="badge badge-secondary cursor" style="font-size: small;">{{role}}</span></h1>  
+        <span>Dashboard / Website / News / Edit News</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xl-8">  
+              <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-xl-8">
+                    <div class="form-group mb-3">
+                      <label for="title">Title: </label>
+                      <input class="form-control" formControlName="title" type="text" name="title">
+                        <span class="text-danger"
+                          *ngIf="(form.controls.title.touched || submit) && form.controls.title.errors?.required">
+                          Title is required
+                        </span>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label for="image">Image: </label>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <img [src]="sanitizer.bypassSecurityTrustUrl(image)" alt="image" width="70%">
+                        </div>
+                        <div class="col-sm-6">
+                          <input class="form-control" formControlName="image" type="file" name="image" (change)="uploadFileImg($event)">
+                          <span class="text-danger"
+                            *ngIf="(form.controls.image.touched || submit) && form.controls.image.errors?.required">
+                            Image is required
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label for="sub_desc">Sub-Description : </label>
+                      <textarea class="form-control" formControlName="sub_desc" type="text" name="sub_desc"></textarea>
+                        <span class="text-danger"
+                          *ngIf="(form.controls.sub_desc.touched || submit) && form.controls.sub_desc.errors?.required">
+                          Sub Description is required
+                        </span>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label for="content">Content: </label>
+                      <tinymce  formControlName="content" name="content" [config]="config"></tinymce>
+                        <span class="text-danger"
+                          *ngIf="(form.controls.content.touched || submit) && form.controls.content.errors?.required">
+                          Content is required
+                        </span>
+                    </div>
+                   
+                  </div> 
+                </div>
+          
+                <button type="submit" class="btn btn-primary my-4">Submit</button>  
+             
+              </form>
+            </div>
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

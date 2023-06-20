@@ -1,0 +1,423 @@
+<div class="header pb-8 pt-8 pt-md-8">
+  <div class="container-fluid">
+
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="container margin-nav">
+
+  <div class="sub-header">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow" style="padding: 10px;">
+          <div class="report-nav">
+            <h3 class="m-0 font-weight-500"><span class="text-muted"> Detail  ➜ Player </span>  ➜ <span class="text-primary">{{userData.username}}</span> Details </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+
+        <div class="row">
+          <div class="col">
+            <div class="border-0 mb-2">
+              <h3 class="mb-0">Account Detail's</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="profile">
+              <div class="align-items-center">
+                <span class="avatar avatar-lg rounded-square cursor">
+                  <span *ngIf="userData.user_star_level == 1" class="badge_img"><img src="assets/img/icon/badge/bronze.png"></span>
+                  <span *ngIf="userData.user_star_level == 2" class="badge_img"><img src="assets/img/icon/badge/sliver.png"></span>
+                  <span *ngIf="userData.user_star_level == 3" class="badge_img"><img src="assets/img/icon/badge/gold.png"></span>
+                  <span *ngIf="userData.user_star_level == 4" class="badge_img"><img src="assets/img/icon/badge/diamond.png"></span>
+                  <span *ngIf="userData.user_star_level == 5" class="badge_img"><img src="assets/img/icon/badge/platinum.png"></span>
+                  <img *ngIf="userData.profile_image == ''" src="assets/img/avatar/profile.jpg" style="display: block;">
+                  <img *ngIf="userData.profile_image != ''" [src]="sanitizer.bypassSecurityTrustUrl(userData.profile_image)" style="display: block;">
+                  <span *ngIf="userData.active == 0" class="ban-img"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+
+            <div class="row">
+              <div class="col-sm-4">
+                <h2 class="mb-0">{{userData.name}} {{userData.last_name}}  <span *ngIf="userData.premium_flag=='vip'" class="badge badge-sm badge-warning">{{userData.premium_flag}}</span>
+                  <span *ngIf="userData.premium_flag=='normal'" class="badge badge-sm badge-primary">{{userData.premium_flag}}</span></h2>
+                <p class="text-muted mt-0">
+                  <small>
+                    <i class="ni ni-square-pin" aria-hidden="true"></i> {{userData.city}}, {{userData.state}}
+                  </small>
+                </p>
+              </div>
+              <div class="col-sm-2">
+                <span *ngIf="userData.user_rank_level < 10">
+                  <img src="assets/img/icon/top-10.png" alt="top-10" width="85%">
+                </span>
+              </div>
+            </div>
+
+            <p class="mb-0 text-info" style="font-family: 'NucleoIcons';">Star Level</p>
+            <span *ngIf="userData.user_star_level == 0" class="star_img"><img src="assets/img/icon/star-level/no_star.png"></span>
+            <span *ngIf="userData.user_star_level == 1" class="star_img"><img src="assets/img/icon/star-level/one_star.png"></span>
+            <span *ngIf="userData.user_star_level == 2" class="star_img"><img src="assets/img/icon/star-level/two_star.png"></span>
+            <span *ngIf="userData.user_star_level == 3" class="star_img"><img src="assets/img/icon/star-level/three_star.png"></span>
+            <span *ngIf="userData.user_star_level == 4" class="star_img"><img src="assets/img/icon/star-level/four_star.png"></span>
+            <span *ngIf="userData.user_star_level == 5" class="star_img"><img src="assets/img/icon/star-level/five_star.png"></span>
+ 
+            <br><br>    
+           
+            <a href="mailto:{{userData.email}}" class="btn btn-icon-only text-primary">
+              <i class="fas fa-envelope"></i> {{userData.email}}
+            </a>
+            <a href="tel:+91{{userData.phone_no}}" class="btn btn-icon-only text-success">
+              <i class="fas fa-phone"></i> {{userData.phone_no}}
+            </a>       
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="accordion" style="margin: 20px 0px;">
+    <div class="card shadow">
+      <div class="card-header" data-bs-toggle="collapse" href="#collapseOne" >
+        <div class="row">
+          <div class="col">
+            <div class="border-0 mb-2">
+              <h3 class="mb-0"><i class="fa fa-user" aria-hidden="true"></i> Profile Detail's</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+        <div class="card-body">
+          <p style="color: #64a0d3">Users Main Details</p>
+          <div class="row">
+            <div class="col-md-4 mt-2 mb-2">
+              <b>First Name: </b> {{userData.name}}
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Last Name: </b> {{userData.last_name}}
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>UserName: </b> {{userData.username}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Email: </b> {{userData.email}}
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>phone Number: </b> {{userData.phone_no}}
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Gender: </b> {{userData.gender}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 mt-2 mb-2">
+              <b>State: </b> {{userData.state}}
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>City: </b> {{userData.city}}
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Pincode: </b> {{userData.pin_code}}
+            </div>
+          </div>
+
+          <p style="color: #64a0d3" class="mt-5">Status</p>
+          <div class="row">
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Active: </b> <span *ngIf="userData.active == 0">InActive</span>
+              <span *ngIf="userData.active == 1">Active</span>
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Online Status: </b> <span *ngIf="userData.online_status == 0" class="badge badge-sm badge-secondary">Offilne</span>
+              <span *ngIf="userData.online_status == 1" class="badge badge-sm badge-success">Online</span>
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Premium Flg: </b> <span style="text-transform: uppercase;">{{userData.premium_flag}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Star Level: </b> {{userData.user_star_level}} STAR
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Badge Level: </b> {{userData.tier_name}}
+            </div>
+          </div>
+
+          <p style="color: #64a0d3" class="mt-5">Regsiter Info</p>
+          <div class="row">
+            <div class="col-md-6 mt-2 mb-2">
+              <b>Reg IP Address: </b> {{userData.ip_registration}}
+            </div>
+            <div class="col-md-6 mt-2 mb-2">
+              <b>Reg Date: </b> {{userData.created_at}}
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>    
+    <div class="card shadow">
+      <div class="card-header" data-bs-toggle="collapse" href="#collapseTwo">
+        <div class="row">
+          <div class="col">
+            <div class="border-0 mb-2">
+              <h3 class="mb-0"><i class="fa fa-university" aria-hidden="true"></i> Bank Info</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+        <div class="card-body">
+          <!-- <p style="color: #64a0d3">Users Main Details</p> -->
+          <div class="row">
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Bank Account Name: </b> {{userBankData.customer_name}}
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Bank Account No: </b> {{userBankData.account_no}}
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Bank Name: </b> {{userBankData.bank_name}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 mt-2 mb-2">
+              <b>IFSC Code: </b> {{userBankData.ifsc_code}}
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <b>Account Type: </b>  <span class="badge badge-sm badge-info">{{userBankData.ac_type}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow">
+      <div class="card-header" data-bs-toggle="collapse" href="#collapseThree">
+        <div class="row">
+          <div class="col">
+            <div class="border-0 mb-2">
+              <h3 class="mb-0"> <i class="fa fa-id-card" aria-hidden="true"></i> Kyc Detail's</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <span> <b>Pan Number:</b> {{userKycData.pan_no}}</span>
+              <img class="m-2" [src]="sanitizer.bypassSecurityTrustUrl(userKycData.pc_file)" width="70%">
+            </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-cash-tab" data-bs-toggle="pill" data-bs-target="#pills-cash" type="button" role="tab" aria-controls="pills-cash" aria-selected="true">Cash</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-practice-tab" data-bs-toggle="pill" data-bs-target="#pills-practice" type="button" role="tab" aria-controls="pills-practice" aria-selected="false">Practice</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-bonus-tab" data-bs-toggle="pill" data-bs-target="#pills-bonus" type="button" role="tab" aria-controls="pills-bonus" aria-selected="false">Bonus</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-points-tab" data-bs-toggle="pill" data-bs-target="#pills-points" type="button" role="tab" aria-controls="pills-points" aria-selected="false">Points</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-cash" role="tabpanel" aria-labelledby="pills-cash-tab">
+
+            <p style="color: #64a0d3" class="m-3"><b> Balance: </b> {{userCashData.cash_inhand}}</p>
+
+            <div class="row m-2">
+              <div class="col-sm-4">
+                <b>Total Cash: </b> {{userCashData.total_cash}}
+              </div>
+              <div class="col-sm-4">
+                <b>Total Play Cash: </b> {{userCashData.cash_inplay}}
+              </div>
+              <div class="col-sm-4">
+                <b>Total Win Cash: </b> {{userCashData.cash_inwin}}
+              </div>
+            </div>
+
+            <div class="row m-2">
+              <div class="col-sm-4">
+                <b>Total Deposit Cash: </b> {{userCashData.total_deposit_point}}
+              </div>
+              <div class="col-sm-4">
+                <b>Total Withdraw Cash: </b> {{userCashData.total_withdraw_cash}}
+              </div>
+            </div>
+
+          </div>
+          <div class="tab-pane fade" id="pills-practice" role="tabpanel" aria-labelledby="pills-practice-tab">
+            <p style="color: #64a0d3" class="m-3"><b> Free Chips Balance: </b> {{userPracticeData.chips_inhand}}</p>
+
+            <div class="row m-2">
+              <div class="col-sm-4">
+                <b>Total Chips: </b> {{userPracticeData.total_chips}}
+              </div>
+              <div class="col-sm-4">
+                <b>Total Free Chips: </b> {{userPracticeData.chips_inplay}}
+              </div>
+              <div class="col-sm-4">
+                <b>Total Win Chips: </b> {{userPracticeData.chips_inwin}}
+              </div>
+            </div>
+
+          </div>
+          <div class="tab-pane fade" id="pills-bonus" role="tabpanel" aria-labelledby="pills-bonus-tab">
+            <p style="color: #64a0d3" class="m-3"><b> Bonus Balance: </b> {{userBonusData.bonus_inhand}}</p>
+
+            <div class="row m-2">
+              <div class="col-sm-4">
+                <b>Total Bonus: </b> {{userBonusData.total_bonus}}
+              </div>
+              <div class="col-sm-4">
+                <b>Total Bonus Used: </b> {{userBonusData.bonus_used}}
+              </div>
+              
+            </div>
+          </div>
+          <div class="tab-pane fade" id="pills-points" role="tabpanel" aria-labelledby="pills-points-tab">
+            <p style="color: #64a0d3" class="m-3"><b> Points Balance: </b> {{userPointsData.total_point}}</p>
+
+            <div class="row m-2">
+              <div class="col-sm-4">
+                <b>Points Decrease: </b> {{userPointsData.point_decrease}}
+              </div>
+              <div class="col-sm-4">
+                <b>Total Points: </b> {{userPointsData.point_inhand}}
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Play Detail's -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow mt-3">
+
+        <div class="row">
+          <div class="col">
+            <div class="border-0 mb-2">
+              <h3 class="mb-0">Game Detail's</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+
+          <div class="row">
+
+            <div class="col-md-4">
+    
+                <div class="card shadow" style="padding: 20px; margin: 10px; background-color: #cddfef">
+            
+                    <h4 style="margin-bottom: 10px; border-radius: 2px solid black;">Total Play Games</h4>
+    
+                    <span>10</span>     
+                
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+    
+                <div class="card shadow" style="padding: 20px; margin: 10px; background-color: #cddfef">
+            
+                    <h4 style="margin-bottom: 10px; border-radius: 2px solid black;">Total Loss In Game</h4>
+    
+                    <span>6</span>     
+                
+                </div>
+            </div>
+    
+    
+            <div class="col-md-4">
+    
+                <div class="card shadow" style="padding: 20px; margin: 10px; background-color: #cddfef">
+            
+                    <h4 style="margin-bottom: 10px; border-radius: 2px solid black;">Total Win In Game</h4>
+    
+                    <span>4</span>     
+                
+                </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+    
+                <div class="card shadow" style="padding: 20px; margin: 10px; background-color: #cddfef">
+            
+                    <h4 style="margin-bottom: 10px; border-radius: 2px solid black;">Total Play Of Tournament</h4>
+    
+                    <span>5</span>     
+                
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+    
+                <div class="card shadow" style="padding: 20px; margin: 10px; background-color: #cddfef">
+            
+                    <h4 style="margin-bottom: 10px; border-radius: 2px solid black;">Total Loss In Tournament</h4>
+    
+                    <span>3</span>     
+                
+                </div>
+            </div>
+    
+    
+            <div class="col-md-4">
+    
+                <div class="card shadow" style="padding: 20px; margin: 10px; background-color: #cddfef">
+            
+                    <h4 style="margin-bottom: 10px; border-radius: 2px solid black;">Total Win In Tournament</h4>
+    
+                    <span>2</span>     
+                
+                </div>
+            </div>
+
+          </div>
+    
+    
+        </div>          
+        
+    </div>
+  </div>
+</div>

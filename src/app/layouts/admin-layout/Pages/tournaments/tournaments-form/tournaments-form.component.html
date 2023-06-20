@@ -1,0 +1,130 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{config.title}}</h4>
+  <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()"> 
+
+    <div class="form-group">
+      <label for="title">Tournament Title:</label>
+      <input class="form-control" type="text" formControlName="title" name="title" [value]="form.get('title').value | titlecase">
+      <span class="text-danger"
+        *ngIf="(form.controls.title.touched || submit) && form.controls.title.errors?.required"> 
+        Tournament Title is required
+      </span>
+      <span class="text-danger"
+        *ngIf="(form.controls.title.touched || submit) && form.controls.title.errors?.minlength">
+        Your Title should contain atleast 3 characters
+      </span>
+      <span class="text-danger"
+        *ngIf="(form.controls.title.touched || submit) && form.controls.title.errors?.maxlength">
+        Maximum 26 characters are allowed
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="start_date">Start Date:</label>
+      <input class="form-control" type="date" formControlName="start_date" name="start_date" value="start_date | date:'yyyy-MM-dd'">
+      <span class="text-danger"
+        *ngIf="(form.controls.start_date.touched || submit) && form.controls.start_date.errors?.required"> 
+        Tournament Start Date is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Start Time:</label>
+      <input class="form-control" type="time" formControlName="start_time" name="start_time">
+      <span class="text-danger"
+        *ngIf="(form.controls.start_time.touched || submit) && form.controls.start_time.errors?.required"> 
+        Tournament Start Time is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Register Start:</label>
+      <input class="form-control" type="date" formControlName="reg_start_date" name="reg_start_date" value="reg_start_date | date:'yyyy-MM-dd'">
+      <span class="text-danger"
+        *ngIf="(form.controls.reg_start_date.touched || submit) && form.controls.reg_start_date.errors?.required"> 
+        Register Start Date is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Register Time:</label>
+      <input class="form-control" type="time" formControlName="reg_start_time" name="reg_start_time">
+      <span class="text-danger"
+        *ngIf="(form.controls.reg_start_time.touched || submit) && form.controls.reg_start_time.errors?.required"> 
+        Register Start Time is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Register End:</label>
+      <input class="form-control" type="date" formControlName="reg_end_date" name="reg_end_date" value="reg_end_date | date:'yyyy-MM-dd'">
+      <span class="text-danger"
+        *ngIf="(form.controls.reg_end_date.touched || submit) && form.controls.reg_end_date.errors?.required"> 
+        Register End Date is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Register Time:</label>
+      <input class="form-control" type="time" formControlName="reg_end_time" name="reg_end_time">
+      <span class="text-danger"
+        *ngIf="(form.controls.reg_end_time.touched || submit) && form.controls.reg_end_time.errors?.required"> 
+        Register End Time is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Price Amount:</label>
+      <input class="form-control" type="number" formControlName="price_amount" name="price_amount">
+      <span class="text-danger"
+        *ngIf="(form.controls.price_amount.touched || submit) && form.controls.price_amount.errors?.required"> 
+        Tournament Price Amount is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="game_id">Game Type:</label>
+      <select name="game_id" #gameType formControlName="game_id" (change)="gameTypeChange(gameType.value)" name="game_id" class="form-control">
+        <option *ngFor="let game of gameTypesData; let i = index" [value]="game.game_id">{{game.game_type}}</option>
+      </select> 
+      <span class="text-danger"
+        *ngIf="(form.controls.game_id.touched || submit) && form.controls.game_id.errors?.required"> 
+        Game Type is required
+      </span>
+    </div>   
+
+    <div class="form-group">
+      <label for="max_player">Max Player:</label> 
+      <select name="max_player" #maxPlayer formControlName="max_player" (change)="playerTypeChange(maxPlayer.value)" name="max_player" class="form-control">
+        <option *ngFor="let player of gameTourneyPlayer; let i = index" [value]="player.max_player">{{player.max_player}}</option>
+      </select> 
+      <span class="text-danger"
+        *ngIf="(form.controls.max_player.touched || submit) && form.controls.max_player.errors?.required"> 
+        Max Player is required
+      </span>
+    </div>   
+
+    <div class="form-group">
+      <label for="entry_fees">Entry Fees:</label>
+      <select name="entry_fees" formControlName="entry_fees" (change)="entryEntryChange(maxPlayer.value)" name="entry_fees" class="form-control">
+        <option *ngFor="let fees of gameTourneyFees; let i = index" [value]="fees.entry_fees">{{fees.entry_fees}}</option>
+      </select> 
+      <span class="text-danger"
+        *ngIf="(form.controls.entry_fees.touched || submit) && form.controls.entry_fees.errors?.required"> 
+        Entry Fees is required
+      </span>
+    </div>   
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary mt-4">Submit</button>
+    </div>
+
+  </form>
+</div>
+  

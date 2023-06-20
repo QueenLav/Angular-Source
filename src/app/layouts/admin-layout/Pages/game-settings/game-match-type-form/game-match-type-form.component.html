@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{config.title}}</h4>
+    <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <form [formGroup]="MatchTypeForm" (ngSubmit)="onSubmit()"> 
+  
+      <div class="form-group">
+        <label>Name:</label>
+        <input class="form-control" type="text" formControlName="name" name="name" [value]="MatchTypeForm.get('name').value | titlecase">
+        <span class="text-danger"
+          *ngIf="(MatchTypeForm.controls.name.touched || submit) && MatchTypeForm.controls.name.errors?.required"> 
+          Name is required
+        </span>
+        <span class="text-danger"
+          *ngIf="(MatchTypeForm.controls.name.touched || submit) && MatchTypeForm.controls.name.errors?.minlength">
+          Your name should contain atleast 3 characters
+        </span>
+        <span class="text-danger"
+          *ngIf="(MatchTypeForm.controls.name.touched || submit) && MatchTypeForm.controls.name.errors?.maxlength">
+          Maximum 26 characters are allowed
+        </span>
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" formControlName="description" name="description"></textarea>
+        <span class="text-danger"
+            *ngIf="(MatchTypeForm.controls.description.touched || submit) && MatchTypeForm.controls.description.errors?.required"> 
+            Description is required
+        </span>
+        <span class="text-danger"
+            *ngIf="(MatchTypeForm.controls.description.touched || submit) && MatchTypeForm.controls.description.errors?.minlength">
+            Your name should contain atleast 8 characters
+        </span>
+        <span class="text-danger"
+            *ngIf="(MatchTypeForm.controls.description.touched || submit) && MatchTypeForm.controls.description.errors?.maxlength">
+            Maximum 200 characters are allowed
+        </span>
+      </div>   
+  
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+      </div>
+  
+    </form>
+  </div>
+    

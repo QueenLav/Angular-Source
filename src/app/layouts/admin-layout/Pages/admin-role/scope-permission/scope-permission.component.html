@@ -1,0 +1,90 @@
+<div class="header pb-8 pt-8 pt-md-8">
+    <div class="container-fluid">
+  
+    </div>
+  </div>
+  
+  <!-- Page content -->
+  <div class="container margin-nav">
+
+    <div class="sub-header">
+      <div class="row">
+        <div class="col">
+          <div class="card shadow" style="padding: 10px;">
+            <div class="report-nav">
+              <h3 class="m-0 font-weight-500"><span class="text-muted"> Permission  ➜ Roles </span>  ➜ Scope Permission </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+  
+          <div class="row">
+                <div class="col">
+                    <ngx-datatable
+                    #scopeTable
+                    class="material expandable"
+                    [rows]="rows"
+                    [groupRowsBy]="'scope_group'"
+                    [columnMode]="'force'"
+                    [scrollbarH]="true"
+                    [headerHeight]="50"
+                    [footerHeight]="50"
+                    [rowHeight]="40"
+                    [limit]="50"
+                    [groupExpansionDefault]="false"
+                  >
+                    <!-- Group Header Template -->
+                    <ngx-datatable-group-header [rowHeight]="50" #myGroupHeader (toggle)="onDetailToggle($event)">
+                      <ng-template let-group="group" let-expanded="expanded" ngx-datatable-group-header-template>
+                        <div style="padding-left:5px;">
+                          <a
+                           
+                            [class.datatable-icon-right]="!expanded"
+                            [class.datatable-icon-down]="expanded"
+                            title="Expand/Collapse Group"
+                            (click)="toggleExpandGroup(group)"
+                          >
+                            <b>{{ group.value[0].scope_group | uppercase}}</b>
+                          </a>
+                        </div>
+                      </ng-template>
+                    </ngx-datatable-group-header>
+                    <!-- Row Column Template -->
+                    <ngx-datatable-column [width]="30" name="Allowed/NotAllowred" prop="" editable="true" frozenLeft="True">
+                      <ng-template
+                        ngx-datatable-cell-template
+                        let-rowIndex="rowIndex"
+                        let-value="value"
+                        let-row="row"
+                        let-group="group"
+                      >
+                        <label for="ep1{{ rowIndex }}" class="datatable-checkbox">
+                          <input
+                            type="checkbox"
+                            id="ep1{{ rowIndex }}"
+                            name="{{ rowIndex }}"
+                            value="0"
+                            class="expectedpayment"
+                            [value]="row.isChecked"
+                            (change)="checkCheckBoxvalue($event,row.scope)"
+                            [checked]="row.isChecked"
+                          />
+                        </label>
+                        <!-- (change)="checkGroup($event, row, rowIndex, group)" -->
+                        
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Scope Name" *ngIf="checkScope('edit_scope') == true" [width]="'auto'" prop="scope_name" editable="false" frozenLeft="True"></ngx-datatable-column>
+                </ngx-datatable>
+                
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

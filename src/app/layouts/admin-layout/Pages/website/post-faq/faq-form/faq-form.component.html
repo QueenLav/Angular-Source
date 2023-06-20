@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{config.title}}</h4>
+    <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()"> 
+  
+      <div class="form-group">
+        <label>Question:</label>
+        <input class="form-control" type="text" formControlName="title" name="title" >
+        <span class="text-danger"
+          *ngIf="(form.controls.title.touched || submit) && form.controls.title.errors?.required"> 
+          Question is required
+        </span>
+      </div>
+  
+      <div class="form-group">
+        <label>Answer:</label>
+        <textarea class="form-control"  formControlName="answer"  type="text" name="answer"></textarea>
+        <span class="text-danger"
+          *ngIf="(form.controls.answer.touched || submit) && form.controls.answer.errors?.required">
+          Answer is required
+        </span>
+      </div>  
+  
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+      </div>
+  
+    </form>
+  </div>
+    

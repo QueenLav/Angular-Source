@@ -1,0 +1,135 @@
+.text-danger {
+    color: #f5365c !important;
+    font-size: 12px;
+}
+.left{
+    float: right;
+}
+.text-center{
+    text-align: center;
+}
+.small-letter{
+    text-transform: lowercase;
+}
+.cursor{
+    cursor: pointer;
+}
+.bg-gradient-danger {
+    background-color: #424242 !important;
+}
+/* header */
+.main-content .navbar-top {
+    background-color: #204688 !important;
+}
+/* Form */
+.form-control {
+    font-size: 0.875rem;
+    color: gray;
+}
+.vertical-form-control {
+    /* width: 79%; */
+    height: 40px;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    color: #8898aa;
+    border: 1px solid #cad1d7;
+    border-radius: 0.375rem; 
+}
+.ngx-datatable.material {
+    background: none !important;
+    box-shadow: none !important;
+} 
+.ngx-datatable.bootstrap {
+    /* overflow-x: auto; */
+}
+.datatable-header {
+    border-bottom: none !important;
+    color: #8898aa !important;
+    background-color: #f6f9fc !important;
+    border-color: #e9ecef !important;
+}
+
+/* main-content */
+.container{
+    max-width: 1500px !important;
+}
+
+/* Card */
+.card{
+    padding: 20px;
+}
+.card-sub-header{
+    padding: 10px;
+}
+.card-sub-header label{
+   font-size: 18px;
+}
+.card-sub-header input{
+    padding: 6px;
+    font-size: 16px;
+    border: 2px solid rgb(201 197 197);
+    border-radius: 5px;
+    margin-left: 8px;
+}
+.card-sub-header select{
+    padding: 6px;
+    font-size: 16px;
+    border: 2px solid rgb(201 197 197);
+    border-radius: 5px;
+    margin-left: 8px;
+}
+
+
+/* Slide menu */
+.dropdown-arrow{
+    transform: rotate(-180deg);
+    color: #8898aa;
+}
+.sub-menu-list{
+    display: none;
+    list-style-type: none;
+    padding-left: 10px;
+}
+.sub-menu-list ul li{
+    margin-left: 0px;
+}
+
+
+
+/* ngx-table */
+.datatable-header-cell{
+    color: rgb(22, 22, 22) !important;
+    font-size: 18px !important;
+}
+.datatable-body-row{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+.ngx-datatable.material .datatable-footer {
+    border-top: none !important;
+}
+.datatable-footer{
+    font-size: 16px !important;
+}
+
+/* modal */
+.modal-dialog {
+    /* position: absolute !important;
+    top: 40% !important;
+    left: 50% !important;
+    transform: translate(-50%, -40%) !important; */
+}
+
+
+/* Report nav */
+.report-nav{
+    display: flex;
+    align-items: center;
+    font-weight: 500 !important;
+    /* justify-content: center; */
+}
+
+
+/* form */
+.form-control {
+    color: #353535 !important;
+}

@@ -1,0 +1,208 @@
+<div class="header pb-8 pt-8 pt-md-8">
+  <div class="container-fluid">
+
+  </div>
+</div>
+    
+  <!-- Page content -->
+  <div class="container margin-nav">
+
+    <div class="sub-header">
+      <div class="row">
+        <div class="col-sm-7">
+          <h1>Welcome {{name}} <span class="badge badge-secondary cursor" style="font-size: small;">{{role}}</span></h1>  
+          <span>Dashboard / Game Table / Tourney Rooms</span>
+        </div>
+        <div class="col-sm-5" *ngIf="checkScope('add_tourney') == true">
+          <div class="add-btn-contain">
+            <button type="button" class="add-btn" (click)="addData()">
+              Create Tourney
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+
+          <!-- <div class="row">
+            <div class="col-sm-12">
+              <div class="card-sub-btn">
+                <button type="button" *ngIf="checkScope('get_cash_table') == true" class="add-btn" routerLinkActive="active" [routerLink]="['/real-money-table']">
+                  Cash
+                </button>
+                <button type="button" *ngIf="checkScope('get_free_table') == true" class="add-btn" routerLinkActive="active" [routerLink]="['/practice-table']">
+                  Practice
+                </button>
+                <button type="button" *ngIf="checkScope('get_tourney') == true" class="add-btn add-btn-active" routerLinkActive="active" [routerLink]="['/tournaments']">
+                  Tourney
+                </button>
+              </div>
+            </div>
+          </div>
+   -->
+          <!-- <div class="container-fluid"> -->
+            <div class="row">
+              <div class="col-sm-12">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-sm-2">
+                      <p>Form : <input type="date" class="vertical-form-control" formControlName="start_date" name="start_date" value="start_date | date:'yyyy-MM-dd'"> </p>
+                      <span class="text-danger"
+                        *ngIf="(form.controls.start_date.touched || submit) && form.controls.start_date.errors?.required"> 
+                        Form date is required
+                      </span>
+                    </div> 
+                    <div class="col-sm-2">
+                      <p>To : <input type="date" class="vertical-form-control" formControlName="end_date" name="end_date" value="end_date | date:'yyyy-MM-dd'"> </p>
+                      <span class="text-danger"
+                        *ngIf="(form.controls.end_date.touched || submit) && form.controls.end_date.errors?.required"> 
+                        End date is required
+                      </span>  
+                    </div> 
+                    <div class="col-sm-2">
+                        <select name="game_type" formControlName="game_type" class="form-control">
+                            <option [ngValue]="''" selected>-- Game Types --</option>
+                            <option *ngFor="let gameTypes of gameTypesData; let i = index" [ngValue]="gameTypes.id">{{gameTypes.name}}</option>
+                        </select> 
+                    </div>                    
+                    <div class="col-sm-1">
+                        <select name="active_status" formControlName="active_status" class="form-control">
+                            <option [ngValue]="''" selected>-- Action --</option>
+                            <option [ngValue]="0">Stop</option>
+                            <option [ngValue]="1">Live</option>
+                        </select> 
+                    </div> 
+                    <div class="col-sm-2">
+                        <select name="tourney_status" formControlName="tourney_status" class="form-control">
+                            <option [ngValue]="''" selected>-- Tourney Status --</option>
+                            <option [ngValue]="0">Upcoming</option>
+                            <option [ngValue]="1">Live</option>
+                            <option [ngValue]="2">Stop</option>
+                        </select> 
+                    </div> 
+                    <div class="col-sm-1">
+                      <button type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Submit</button>  
+                    </div>
+                  </div> 
+                </form>
+              </div>
+            </div>
+          <!-- </div> -->
+  
+          <div class="row">
+            <div class="col">
+              <div class="card-sub-header border-0">
+                <label for="per-page">Show: </label>
+                <select id="per-page" (change)="onLimitChange($event.target.value)" > 
+                  <option *ngFor="let option of pageLimitOptions" [value]="option.value" [selected]="option.value == currentPageLimit">
+                    {{ option.value }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card-sub-header border-0 left">
+                <label for="search">Search: </label>
+                <input type="text" class="search-input" (keyup)="updateFilter($event)"/>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col">
+              <ngx-datatable
+                class="material"
+                [rows]="getData"
+          
+                [columnMode]="'force'"
+                [headerHeight]="65"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [externalPaging]="true"
+                [externalSorting]="true"
+                [count]="page.count"
+                [offset]="page.offset"
+                [limit]="page.limit"
+                [sortType]="'single'"
+                (page)="pageCallback($event)"
+            
+              >
+  
+                <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false" name="Tournament ID" prop="id" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false" name="Tournament Name" prop="title" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}">  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false" name="Game Type" prop="game_type" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                      <div class="fixlen" title="{{value}}">  {{value}} </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false" name="max Player" prop="max_player" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+              
+                <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false" name="Entry Fees" prop="entry_fees" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false" name="Prize Amount" prop="price_amount" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+        
+                <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false" name="Start Date" prop="start_date" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false" name="Start Time" prop="start_time" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false" name="Status" prop="status" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <span class="badge badge-warning" *ngIf="value==0">Upcoming</span>
+                        <span class="badge badge-success" *ngIf="value==1">Live</span>
+                        <span class="badge badge-danger" *ngIf="value==2">End</span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" *ngIf="checkScope('status_tourney') == true" [draggable]="false" [resizeable]="false" name="Action" prop="active" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                      <a class="btn btn-sm btn-danger" *ngIf="value == 0" (click)="changeActive(row)">
+                        <span>Stop</span>
+                      </a>                  
+                      <a class="btn btn-sm btn-success" *ngIf="value == 1" (click)="changeActive(row)">
+                        <span>Active</span>
+                      </a>
+                    </ng-template>
+                </ngx-datatable-column>
+
+              </ngx-datatable>
+      
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

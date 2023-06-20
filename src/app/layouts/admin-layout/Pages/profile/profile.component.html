@@ -1,0 +1,181 @@
+<div class="header pb-8 pt-8 pt-md-8">
+  <div class="container-fluid">
+
+  </div>
+</div>
+
+<div class="container margin-nav">
+
+  <div class="sub-header">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Welcome {{name}} <span class="badge badge-secondary cursor" style="font-size: small;">{{role}}</span></h1>  
+        <span>Dashboard / Users / Profile</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-8 order-xl-1">
+      <div class="card shadow">
+        <div class="card-header bg-white border-0">
+          <div class="align-items-center">
+            <span class="avatar avatar-lg rounded-circle cursor">
+              <img alt="Image placeholder" src="assets/img/avatar/profile.jpg" style="display: block;">
+            </span>
+          </div>
+          <!-- <div class="row justify-content-center">
+            <div class="col-lg-3 order-lg-2">
+              <div class="card-profile-image">
+                <a href="javascript:void(0)">
+                  <img src="assets/img/avatar/profile.jpg" class="rounded-circle">
+                </a>
+              </div>
+            </div>
+          </div><br /><br /><br />
+          <div class="row align-items-center"></div> -->
+        </div>
+        <div class="card-body">
+          <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()">
+            <h6 class="heading-small text-muted mb-4">User information</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Name</label>
+                    <input type="text" id="input-username" class="form-control" formControlName="name" name="name" placeholder="Name">
+                    <span class="text-danger"
+                      *ngIf="(profileForm.controls.name.touched || submitProfile) && profileForm.controls.name.errors?.required">
+                      Name is required
+                    </span>
+                    <span class="text-danger"
+                      *ngIf="(profileForm.controls.name.touched || submitProfile) && profileForm.controls.name.errors?.minlength">
+                      Your name should contain atleast 3 characters
+                    </span>
+                    <span class="text-danger"
+                      *ngIf="(profileForm.controls.name.touched || submitProfile) && profileForm.controls.name.errors?.maxlength">
+                      Maximum 26 characters are allowed
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Username</label>
+                    <input type="text" id="input-username" class="form-control" [value]="profileForm.get('username').value | lowercase" formControlName="username" name="username" placeholder="Username">
+                    <span class="text-danger"
+                      *ngIf="(profileForm.controls.username.touched || submitProfile) && profileForm.controls.username.errors?.required">
+                      Username is required
+                    </span>
+                    <span class="text-danger"
+                      *ngIf="(profileForm.controls.username.touched || submitProfile) && profileForm.controls.username.errors?.minlength">
+                      Your username should contain atleast 5 characters
+                    </span>
+                    <span class="text-danger"
+                      *ngIf="(profileForm.controls.username.touched || submitProfile) && profileForm.controls.username.errors?.maxlength">
+                      Maximum 16 characters are allowed
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-email">Email address</label>
+                    <input type="email" id="input-email" class="form-control" formControlName="email" placeholder="Email" name="email">
+                    <span class="text-danger"
+                      *ngIf="(profileForm.controls.email.touched || submitProfile) && profileForm.controls.email.errors?.required">
+                      Email is required
+                    </span>
+                    <span class="text-danger"
+                      *ngIf="(profileForm.controls.email.touched || submitProfile) && profileForm.controls.email.errors?.email">
+                      Invalid Email
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Phone Number</label>
+                    <input type="text" id="input-last-name" class="form-control" formControlName="phone_no" name="phone_no" placeholder="Phone Number">
+                    <span class="text-danger"
+                      *ngIf="(profileForm.controls.phone_no.touched || submitProfile) && profileForm.controls.phone_no.errors?.required">
+                      Phone is required
+                    </span>
+                    <span class="text-danger"
+                      *ngIf="(profileForm.controls.phone_no.touched || submitProfile) && profileForm.controls.phone_no.errors?.pattern"> 
+                      Invalid Phone Number
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary my-4">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 order-xl-2">
+      <div class="card shadow">
+        <div class="card-body">
+          <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+            <h6 class="heading-small text-muted mb-4">Change Password</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Old Password</label>
+                    <input class="form-control" type="password" name="old_password" formControlName="old_password">
+                    <span class="text-danger"
+                      *ngIf="(changePasswordForm.controls.old_password.touched || submitPassword) && changePasswordForm.controls.old_password.errors?.required">
+                      Old Password is required
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">New Password</label>
+                    <input class="form-control" type="text" name="new_password" formControlName="new_password">
+                    <span class="text-danger"
+                      *ngIf="(changePasswordForm.controls.new_password.touched || submitPassword) && changePasswordForm.controls.new_password.errors?.required">
+                      New Password is required
+                    </span>
+                    <span class="text-danger"
+                      *ngIf="changePasswordForm.controls.new_password.touched && changePasswordForm.controls.new_password.errors?.invalidPassword">
+                      Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+                      letter and 1 number
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Confirm New Password</label>
+                    <input class="form-control" type="text" name="re_new_password" formControlName="re_new_password">
+                    <span class="text-danger"
+                      *ngIf="(changePasswordForm.controls.re_new_password.touched || submitPassword) && changePasswordForm.controls.re_new_password.errors?.required">
+                      Confirm Password is required
+                  </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary my-4">Change Password</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>

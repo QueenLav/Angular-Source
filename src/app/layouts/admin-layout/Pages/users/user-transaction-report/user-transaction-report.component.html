@@ -1,0 +1,148 @@
+<div class="header pb-8 pt-8 pt-md-8">
+    <div class="container-fluid">
+  
+    </div>
+  </div>
+    
+  <!-- Page content -->
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="row">
+            <div class="col">
+              <div class="card-header border-0">
+                <h3 class="mb-0">Player Transaction Report</h3>
+              </div>
+            </div>
+          </div>
+  
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-sm-2">
+                      <label>Form :</label>
+                      <input type="date" class="form-control" formControlName="start_date" name="start_date" value="start_date | date:'yyyy-MM-dd'"> 
+                    </div> 
+                    <div class="col-sm-2">
+                      <label>To :</label>
+                      <input type="date" class="form-control" formControlName="end_date" name="end_date" value="end_date | date:'yyyy-MM-dd'">
+                    </div> 
+                    <div class="col-sm-2">
+                      <label>Game Type :</label>
+                      <select name="game_type" formControlName="game_type" class="vertical-form-control">
+                        <option [ngValue]="1">Point Rummy</option>
+                        <option [ngValue]="2">Deal Rummy</option>
+                        <option [ngValue]="3">Pool Rummy</option>
+                        <option [ngValue]="4">Do (or) Die Rummy</option>
+                      </select> 
+                    </div> 
+                    <div class="col-sm-2">
+                      <label>Chips Type :</label>
+                      <select name="chips_type" formControlName="chips_type" class="vertical-form-control">
+                        <option [ngValue]="1">Free</option>
+                        <option [ngValue]="2">Real</option>
+                      </select> 
+                    </div> 
+                    <div class="col-sm-2">
+                      <label>Status Type :</label>
+                      <select name="status_type" formControlName="status_type" class="vertical-form-control">
+                        <option [ngValue]="1">Win</option>
+                        <option [ngValue]="2">Loss</option>
+                      </select> 
+                    </div>     
+                    
+                    <div class="col-sm-2" style="margin-top: 30px;">
+                      <button type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Submit</button>  
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid" style="margin-top: 5px">
+            <h3>Player Transactions Detail ( Total Records : 0)</h3>
+            <div class="row">
+              <div class="col-sm-4">
+                <div style="padding: 20px; background-color: #d8d3af;">
+                  <span style="color: green;">Total Won Amount :</span> Rs. 0.00/-
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div style="padding: 20px; background-color: #d8c6af;">
+                  <span style="color: red;">Total Loss Amount :</span> Rs. 0.00/-
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col">
+              <div class="card-sub-header border-0">
+                <label for="per-page">Show: </label>
+                <select id="per-page" (change)="onLimitChange($event.target.value)" > 
+                  <option *ngFor="let option of pageLimitOptions" [value]="option.value" [selected]="option.value == currentPageLimit">
+                    {{ option.value }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card-sub-header border-0 left">
+                <label for="search">Search: </label>
+                <input type="text" placeholder="Search...." class="search-input" (keyup)="updateFilter($event)"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">S.No</th>
+                  <th scope="col">Created At</th>
+                  <th scope="col">Table ID</th>
+                  <th scope="col">Round ID</th>
+                  <th scope="col">Table Name</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">UserName</th>
+                  <th scope="col">Game Type</th>
+                  <th scope="col">Amount</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>2023-01-19 12:01:12</td>
+                  <td>454</td>
+                  <td>2</td>
+                  <td>Table Name</td>
+                  <td>Barath</td>
+                  <td>1000247</td>
+                  <td>80 Pool</td>
+                  <td>454.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>2023-01-18 12:01:12</td>
+                  <td>456</td>
+                  <td>1</td>
+                  <td>Table Name</td>
+                  <td>Lav</td>
+                  <td>1000246</td>
+                  <td>Deal Rummy</td>
+                  <td>500.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+          
+        </div>
+      </div>
+    </div>
+  </div>

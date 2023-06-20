@@ -1,0 +1,69 @@
+<div class="header pb-8 pt-8 pt-md-8">
+    <div class="container-fluid">
+  
+    </div>
+  </div>
+    
+   
+  <div class="container margin-nav">
+
+    <div class="sub-header">
+      <div class="row">
+        <div class="col-sm-7">
+          <h1>Welcome {{name}} <span class="badge badge-secondary cursor" style="font-size: small;">{{role}}</span></h1>  
+          <span>Dashboard / Website / Setting</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+
+          <div class="container-fluid">
+           
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-8">
+
+                    <div class="form-group mb-3">
+                        <label for="logo_image">Logo Image: </label>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                              <div class="setting-logo">
+                                <img [src]="sanitizer.bypassSecurityTrustUrl(logo)" width="70%" height="85%" alt="Image">
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <input class="form-control" (change)="logoFileImg($event)" accept=".png,.jpg,.jpeg" formControlName="logo_image" type="file" name="logo_image">
+                              <span style="color: blue;">( Dimension Must Be 300*100 )</span>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="form-group mb-3">
+                        <label for="google">Footer: </label>
+                        <tinymce  formControlName="footer" name="footer" [config]="config"></tinymce>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="banner_title">Banner Title: </label>
+                        <input class="form-control" formControlName="banner_title" type="text" name="banner_title">
+                        <span class="text-danger"
+                            *ngIf="(form.controls.banner_title.touched || submit) && form.controls.banner_title.errors?.required">
+                            Banner is required
+                        </span>
+                    </div>
+        
+                </div> 
+              </div>
+        
+              <button *ngIf="checkScope('edit_web_setting') == true"  type="submit" class="btn btn-primary my-4">Update</button>  
+            
+            </form>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

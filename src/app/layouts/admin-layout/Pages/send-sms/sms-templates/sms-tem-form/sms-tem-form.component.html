@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{config.title}}</h4>
+    <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+  
+<div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()"> 
+  
+        <div class="form-group">
+            <label>Name:</label>
+            <input class="form-control" type="text" formControlName="name" name="name" [value]="form.get('name').value | titlecase">
+            <span class="text-danger"
+            *ngIf="(form.controls.name.touched || submit) && form.controls.name.errors?.required"> 
+            Name is required
+            </span>
+            <span class="text-danger"
+            *ngIf="(form.controls.name.touched || submit) && form.controls.name.errors?.minlength">
+            Your name should contain atleast 3 characters
+            </span>
+            <span class="text-danger"
+            *ngIf="(form.controls.name.touched || submit) && form.controls.name.errors?.maxlength">
+            Maximum 26 characters are allowed
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label>Subject:</label>
+            <input class="form-control" formControlName="subject"  type="text" name="subject" >
+            <span class="text-danger"
+            *ngIf="(form.controls.subject.touched || submit) && form.controls.subject.errors?.required">
+            Subject is required
+            </span>
+        </div> 
+  
+        <div class="form-group">
+            <label>Message:</label>
+            <textarea class="form-control" formControlName="message" name="message" rows="5"></textarea>
+            <p style="color: blue;">Note : For add Player's Name In Message Add <span style="color:red">$name</span> and <span style="color:red">$otp</span> at place of required</p>
+            <span class="text-danger"
+            *ngIf="(form.controls.message.touched || submit) && form.controls.message.errors?.required">
+            Message is required
+            </span>
+        </div> 
+    
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+      </div>
+  
+    </form>
+</div>
+    

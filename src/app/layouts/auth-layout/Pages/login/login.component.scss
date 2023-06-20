@@ -1,0 +1,116 @@
+.login_container {
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+}
+
+.logo-txt{
+    margin: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.login-form{
+    padding: 30px 30px !important;
+}
+
+.login-form form input{
+    padding: 25px;
+    border-radius: 100px;
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1.25rem + 2px);
+    // padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #464646;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.login-form form button{
+    border: 5px solid #303c83 !important;
+    background-color: #303c83 !important;
+    padding: 10px 40px;
+    border-radius: 100px;
+    font-size: 15px;
+}
+.login-form form button:hover{
+    border: 5px solid #303c83 !important;
+    background-color: transparent !important;
+}
+
+//Mobile
+@media (max-width:480px)  {
+    .card-logo-image img {
+        max-width: 80px;
+    }
+    .card-body {
+        padding: 0rem;
+    }
+    .login-form{
+        padding: 20px 20px !important;
+    }
+    .card-logo-image img {
+        transform: translate(-50%, -100%);
+    }
+}
+
+// Tab
+@media (max-width:801px){
+
+    // .auth-bg{
+    //     background-image: url('../../assets/img/login/blank-bg.png');
+    //     background-repeat: no-repeat;
+    // }
+
+    .login_container {
+        position: unset;
+        margin: 20px;
+        top: 15%;
+        left: 0%;
+        transform: translate(0%, 15%);
+        width: auto;
+    }
+
+    .login-form{
+        padding: 25px 25px !important;
+    }
+
+    .logo-txt{
+        margin: 20px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+
+    .login-form form button{
+        border: 5px solid #303c83 !important;
+        background-color: #303c83 !important;
+        padding: 8px 30px;
+        border-radius: 100px;
+        font-size: 15px;
+    }
+    
+}
+
+//Small Laptop
+@media only screen and (max-width: 1440px) and (min-width: 802px){ 
+    .login_container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -40%);
+        width: 500px;
+    }
+
+}

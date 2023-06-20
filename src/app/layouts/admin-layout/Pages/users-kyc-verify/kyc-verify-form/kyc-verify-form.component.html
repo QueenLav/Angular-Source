@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><h4 class="modal-title">&nbsp; {{config.title}}</h4><br>
+    <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <p>Are You sure you want to verify this kyc document ?</p>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-sm btn-danger mt-4" (click)="changeStatus()">Verify Now</button>
+    <button type="submit" class="btn btn-sm btn-secondary mt-4" (click)="onClose()">Cancel</button>
+  </div>
+    

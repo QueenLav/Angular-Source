@@ -1,0 +1,78 @@
+<div class="header pb-8 pt-8 pt-md-8">
+    <div class="container-fluid">
+  
+    </div>
+  </div>
+  
+  <!-- Page content -->
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="row">
+            <div class="col">
+              <div class="card-header border-0">
+                <h3 class="mb-0">Sent Email Details</h3>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card-header border-0 left">
+                <button type="button" class="btn btn-sm btn-primary" >
+                  View List
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">  
+                <form >
+                    <h4>Send Sms</h4>
+                  <div class="row">
+                    <div class="col-sm-4">
+                        <label>Player :</label>
+                        <select name="game_type" class="form-control">
+                            <option [ngValue]="" selected>Indivisual</option>
+                            <option [ngValue]="">Active</option>
+                            <option [ngValue]="">Verified</option>
+                            <option [ngValue]="">All Palyers</option>
+                        </select> 
+                    </div> 
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                        <label>Use Template :</label>
+                        <select name="game_type" class="form-control">
+                            <option [ngValue]="" selected>All Player Templates</option>
+                        </select> 
+                    </div> 
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <label>Message :</label>
+                      <tinymce [(ngModel)]="html" [config]="config"></tinymce>
+                    </div> 
+
+                   
+                  </div>
+                  <p style="color: blue;"><span>Note : For add Username In Message Add 
+                    <span style="color: red;">username</span> and For full name 
+                    <span style="color: red;">fullname</span> at place of required</span></p>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <label>Save Or Update Template :</label>
+                      <input type="checkbox"><input type="text" class="form-control" placeholder="Search or type new template name">
+                    </div> 
+                  </div>
+                  <div style="margin: 30px;">
+                    <button type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Submit</button>  
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

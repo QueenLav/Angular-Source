@@ -1,0 +1,98 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{config.title}}</h4>
+  <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="adminForm" (ngSubmit)="onSubmit()"> 
+
+    <div class="form-group">
+      <label>Name:</label>
+      <input class="form-control" type="text" formControlName="name" name="name" [value]="adminForm.get('name').value | titlecase">
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.name.touched || submit) && adminForm.controls.name.errors?.required"> 
+        Name is required
+      </span>
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.name.touched || submit) && adminForm.controls.name.errors?.minlength">
+        Your name should contain atleast 3 characters
+      </span>
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.name.touched || submit) && adminForm.controls.name.errors?.maxlength">
+        Maximum 26 characters are allowed
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Username:</label>
+      <input class="form-control"  formControlName="username"  [value]="adminForm.get('username').value | lowercase" type="text" name="username" >
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.username.touched || submit) && adminForm.controls.username.errors?.required">
+        Username is required
+      </span>
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.username.touched || submit) && adminForm.controls.username.errors?.minlength">
+        Your username should contain atleast 5 characters
+      </span>
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.username.touched || submit) && adminForm.controls.username.errors?.maxlength">
+        Maximum 16 characters are allowed
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Password:</label>
+      <input class="form-control"  formControlName="password" type="text" name="password" >
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.password.touched || submit) && adminForm.controls.password.errors?.required">
+        Password is required
+      </span>
+      <span class="text-danger"
+          *ngIf="(adminForm.controls.password.touched || submit) && adminForm.controls.password.errors?.invalidPassword">
+          Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+          letter and 1 number
+      </span>
+    </div>
+    
+    <div class="form-group">
+      <label>Email:</label>
+      <input class="form-control" formControlName="email"  type="email" name="email" [value]="adminForm.get('email').value | lowercase">
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.email.touched || submit) && adminForm.controls.email.errors?.required">
+        Email is required
+      </span>
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.email.touched || submit) && adminForm.controls.email.errors?.email">
+        Invalid Email
+      </span>
+    </div>  
+    
+    <div class="form-group">
+      <label>Phone Number:</label>
+      <input class="form-control" formControlName="phone_no"  type="text" name="phone_no">
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.phone_no.touched || submit) && adminForm.controls.phone_no.errors?.required">
+        Phone Number is required
+      </span>
+      <span class="text-danger"
+        *ngIf="(adminForm.controls.phone_no.touched || submit) && adminForm.controls.phone_no.errors?.pattern"> 
+        Invalid Phone Number
+      </span>
+    </div>  
+
+    <div class="form-group">
+      <label for="role_id">Role Type:</label>
+      <select name="role_id" formControlName="role_id" class="form-control">
+        <option *ngFor="let role of roles; let i = index" [ngValue]="role.role_id">{{role.role_name}}</option>
+      </select> 
+    </div>   
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary mt-4">Submit</button>
+    </div>
+
+  </form>
+</div>
+  

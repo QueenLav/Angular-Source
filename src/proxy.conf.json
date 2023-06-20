@@ -1,0 +1,15 @@
+{
+  "/rummy_api": {
+    "target": "http://localhost:81/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/rummy_api/*": {
+    "target": "http://localhost:81/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
+

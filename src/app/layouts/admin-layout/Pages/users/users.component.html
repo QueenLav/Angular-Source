@@ -1,0 +1,141 @@
+<div class="header pb-8 pt-8 pt-md-8">
+  <div class="container-fluid">
+
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="container margin-nav">
+
+  <div class="sub-header">
+    <div class="row">
+      <div class="col-sm-7">
+        <h1>Welcome {{name}} <span class="badge badge-secondary cursor" style="font-size: small;">{{role}}</span></h1>  
+        <span>Dashboard / Users / Player's</span>
+      </div>
+      <div class="col-sm-5" *ngIf="checkScope('user_bank_detail') == true">
+        <div class="add-btn-contain">
+          <button type="button" class="add-btn" (click)="exportAsXLSX()">
+            Download Bank Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="row">
+          <div class="col">
+            <div class="card-sub-header border-0">
+              <label for="per-page">Show: </label>
+              <select id="per-page" (change)="onLimitChange($event.target.value)" > 
+                <option *ngFor="let option of pageLimitOptions" [value]="option.value" [selected]="option.value == currentPageLimit">
+                  {{ option.value }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card-sub-header border-0 left">
+              <label for="search">Search: </label>
+              <input type="text" class="search-input" (keyup)="updateFilter($event)"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <ngx-datatable 
+            [scrollbarH]="true"
+            #usersTable 
+            class="material"             
+            [limit]="10" 
+            [columnMode]="'force'" 
+            [headerHeight]="65"
+            [footerHeight]="50" 
+            [rowHeight]="'auto'" 
+            [rows]="userData" >
+          
+              <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Name" prop="name" [minWidth]="'200'" [width]="'200'">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <div class="navbar-profile">
+                    <div class="media align-items-center">
+                      <span class="avatar avatar-sm rounded-circle cursor">
+                        <img *ngIf="row.profile_image == ''" src="assets/img/avatar/profile.jpg" style="display: block;">
+                        <img *ngIf="row.profile_image != ''" [src]="sanitizer.bypassSecurityTrustUrl(row.profile_image)" style="display: block;">
+                        <span *ngIf="row.online_status == 0" class="admin_offline"></span>
+                        <span *ngIf="row.online_status == 1" class="admin_online"></span>
+                      </span>
+                      <div class="media-body ml-2 d-lg-block" style="margin-left: 15px !important;">
+                        <h4><span class="mb-0">{{value}}</span><br></h4>
+                        <span *ngIf="row.premium_flag=='vip'" class="badge badge-sm badge-warning">{{row.premium_flag}}</span>
+                        <span *ngIf="row.premium_flag=='normal'" class="badge badge-sm badge-primary">{{row.premium_flag}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+                
+              <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Username" prop="username" [minWidth]="'200'"  [width]="'200'">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [draggable]="false" [resizeable]="false" *ngIf="checkScope('status_user') == true" name="Status" prop="active" [minWidth]="'100'" [maxWidth]="'100'" [width]="'100'">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <span class="badge badge-danger cursor" *ngIf="value==0" (click)="blockUser(row, 'unblock')">Blocked</span>
+                  <span class="badge badge-success cursor" *ngIf="value==1" (click)="blockUser(row, 'block')">Active</span>
+                </ng-template>
+              </ngx-datatable-column>
+                  
+              <ngx-datatable-column [sortable]="false" [draggable]="false" [resizeable]="false"  name="Action" [minWidth]="'200'" [maxWidth]="'200'" [width]="'200'">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <ng-template #history>Login History</ng-template>
+                  <a class="btn btn-info btn-icon-only" [ngbTooltip]="history"  *ngIf="checkScope('user_log') == true" placement="bottom" (click)="userLoginHistory(row.id)">
+                    <i class="fa fa-history" aria-hidden="true"></i>
+                  </a>
+                  <ng-template #detail>View Deatil</ng-template>
+                  <a class="btn btn-primary btn-icon-only" [ngbTooltip]="detail"  *ngIf="checkScope('user_detail') == true" placement="bottom" (click)="userDetails(row.id)">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </a>
+                </ng-template>
+              </ngx-datatable-column>
+        
+              <div class="card-footer py-4">                
+                <ngx-datatable-footer>
+                  <ng-template
+                    let-rowCount="rowCount"
+                    let-pageSize="pageSize"
+                    let-selectedCount="selectedCount"
+                    let-curPage="curPage"
+                    let-offset="offset"
+                    ngx-datatable-footer-template>
+
+                    <span>&nbsp; Total : {{rowCount}}</span>
+
+                    <datatable-pager
+                      [pagerLeftArrowIcon]="'datatable-icon-left'"
+                      [pagerRightArrowIcon]="'datatable-icon-right'"
+                      [pagerPreviousIcon]="'datatable-icon-prev'"
+                      [pagerNextIcon]="'datatable-icon-skip'"
+                      [page]="curPage"
+                      [size]="pageSize"
+                      [count]="rowCount"
+                      [hidden]="!((rowCount / pageSize) > 1)"
+                      (change)="usersTable.onFooterPage($event)">
+                    </datatable-pager>
+                       
+                  </ng-template>
+                </ngx-datatable-footer>
+              </div>   
+                       
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

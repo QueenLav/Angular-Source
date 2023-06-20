@@ -1,0 +1,129 @@
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <div class="container-fluid">
+
+    <!-- Toggler -->
+    <!-- <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed"
+       aria-controls="sidenav-collapse-main">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+
+    <!-- Brand -->
+    <div class="logo-container">
+      <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">
+        <img [src]="sanitizer.bypassSecurityTrustUrl(logo)"  class="navbar-brand-img" alt="..." width="80%">
+      </a>
+    </div>
+
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
+
+      <!-- Profile -->
+      <div class="navbar-profile">
+        <div class="media align-items-center">
+          <span class="avatar rounded-circle cursor" routerLinkActive="active" [routerLink]="['/user-profile']">
+            <img alt="Image placeholder" src="assets/img/avatar/profile.jpg">
+          </span>
+          <div class="media-body ml-2 d-lg-block">
+            <h3> <span class="mb-0">{{name}}</span><br></h3>
+            <span class="mb-0 text-sm small-letter">{{role}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <ul class="navbar-nav">
+        <li *ngFor="let menuItem of menuItems"  class="nav-item" #itemEl > 
+          <!-- class="{{menuItem.class}} nav-item" -->
+          <!-- <p>{{menuItems.title}}</p> -->
+          <span  *ngIf="menuItem.sub_menu.length == 0 && scopeExists(menuItem.id)==true">
+            <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
+                <i class="{{menuItem.icon}}"></i>
+                {{menuItem.title}}
+            </a>
+          </span>
+          <span *ngIf="menuItem.sub_menu.length > 0 && subScopeExists(menuItem.sub_menu)==true" >
+            <a class="nav-link" (click)="showSubmenu(itemEl)" style="cursor: pointer;">
+              <i class="{{menuItem.icon}}"></i>
+              {{menuItem.title}}
+              <div class="dropdown-arrow-header">
+                <i class="fa fa-chevron-down dropdown-arrow arrow" aria-hidden="true"></i>
+              </div>
+            </a>
+          </span>
+          <ul class="sub-menu-list" > 
+            <li *ngFor="let item_sub of menuItem.sub_menu" class="nav-item">
+              <!-- class="{{item_sub.class}} nav-item" -->
+              <a  *ngIf="scopeExists(item_sub.id)==true" routerLinkActive="active" [routerLink]="[item_sub.path]" class="nav-link">
+                <i class="{{item_sub.icon}}"></i>
+                {{item_sub.title}}
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item"> 
+          <span>
+            <a class="nav-link" (click)="logout()">
+                <i class="ni ni-user-run" aria-hidden="true"></i> Logout
+            </a>
+          </span>        
+        </li>
+      </ul> 
+
+    </div>
+  </div>
+</nav>
+
+<nav class="res-navbar">
+  <div class="res-navbar-section">
+
+    <!-- Profile -->
+    <div class="navbar-profile">
+      <div class="media align-items-center">
+        <span class="avatar rounded-circle cursor" routerLinkActive="active" [routerLink]="['/user-profile']">
+          <img alt="Image placeholder" src="assets/img/avatar/profile.jpg">
+        </span>
+        <div class="media-body ml-2 d-lg-block">
+          <h3> <span class="mb-0">{{name}}</span><br></h3>
+          <span class="mb-0 text-sm small-letter">{{role}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <ul class="navbar-nav">
+      <li *ngFor="let menuItem of menuItems" class="nav-item border-buttom" #itemEl > 
+        <span *ngIf="menuItem.sub_menu.length == 0 && scopeExists(menuItem.id)==true">
+          <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
+              <i class="{{menuItem.icon}}"></i>
+              {{menuItem.title}}
+          </a>
+        </span>
+        <span *ngIf="menuItem.sub_menu.length > 0 && subScopeExists(menuItem.sub_menu)==true" >
+          <a class="nav-link" (click)="showSubmenu(itemEl)" style="cursor: pointer;">
+            <i class="{{menuItem.icon}}"></i>
+            {{menuItem.title}}
+            <div class="dropdown-arrow-header">
+              <i class="fa fa-chevron-down dropdown-arrow arrow" aria-hidden="true"></i>
+            </div>
+          </a>
+        </span>
+        <ul class="sub-menu-list" > 
+          <li *ngFor="let item_sub of menuItem.sub_menu" class="nav-item">
+            <a  *ngIf="scopeExists(item_sub.id)==true" routerLinkActive="active" [routerLink]="[item_sub.path]" class="nav-link">
+              <i class="{{item_sub.icon}}"></i>
+              {{item_sub.title}}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item"> 
+        <span>
+          <a class="nav-link" (click)="logout()">
+              <i class="ni ni-user-run" aria-hidden="true"></i> Logout
+          </a>
+        </span>        
+      </li>
+    </ul> 
+
+  </div>
+</nav>

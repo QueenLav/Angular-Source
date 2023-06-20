@@ -1,0 +1,174 @@
+<div class="header pb-8 pt-8 pt-md-8">
+    <div class="container-fluid">
+  
+    </div>
+  </div>
+    
+  <!-- Page content -->
+  <div class="container margin-nav">
+
+    <div class="sub-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Welcome {{name}} <span class="badge badge-secondary cursor" style="font-size: small;">{{role}}</span></h1>  
+          <span>Dashboard / Players / Withdraw Request</span>
+        </div>
+      </div>
+    </div>
+ 
+    
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+  
+          <!-- <div class="container-fluid"> -->
+            <div class="row">
+              <div class="col-sm-12">
+                <form [formGroup]="withdrawForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p>Form : <input type="date" class="vertical-form-control" formControlName="start_date" name="start_date" value="start_date | date:'yyyy-MM-dd'"> </p>
+                      <span class="text-danger"
+                        *ngIf="(withdrawForm.controls.start_date.touched || submit) && withdrawForm.controls.start_date.errors?.required"> 
+                        Form date is required
+                      </span>
+                    </div> 
+                    <div class="col-sm-3">
+                      <p>To : <input type="date" class="vertical-form-control" formControlName="end_date" name="end_date" value="end_date | date:'yyyy-MM-dd'"> </p>
+                      <span class="text-danger"
+                        *ngIf="(withdrawForm.controls.end_date.touched || submit) && withdrawForm.controls.end_date.errors?.required"> 
+                        End date is required
+                      </span>  
+                    </div> 
+                    <div class="col-sm-2">
+                      <button type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Submit</button>  
+                    </div>
+                  </div> 
+                </form>
+              </div>
+            </div>
+          <!-- </div> -->
+  
+          <div class="row">
+            <div class="col">
+              <div class="card-sub-header border-0">
+                <label for="per-page">Show: </label>
+                <select id="per-page" (change)="onLimitChange($event.target.value)" > 
+                  <option *ngFor="let option of pageLimitOptions" [value]="option.value" [selected]="option.value == currentPageLimit">
+                    {{ option.value }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card-sub-header border-0 left">
+                <label for="search">Search: </label>
+                <input type="text" placeholder="Search..." class="search-input" (keyup)="updateFilter($event)"/>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col">
+              <ngx-datatable
+                class="material"
+                [rows]="withdrawData"
+          
+                [columnMode]="'force'"
+                [headerHeight]="65"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [externalPaging]="true"
+                [externalSorting]="true"
+                [count]="page.count"
+                [offset]="page.offset"
+                [limit]="page.limit"
+                [sortType]="'single'"
+                (page)="pageCallback($event)"
+            
+              >
+  
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Order ID" prop="order_id" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Transaction ID" prop="transaction_id" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}">  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+              
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Name" prop="name" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+        
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Username" prop="username" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Email" prop="email" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                      <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Phone Number" prop="phone_no" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                      <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Request Amount" prop="req_amount" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                      <div class="fixlen" title="{{value}}" > Rs.{{value}} </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Request Date" prop="req_date" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Status" prop="status" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <span class="badge badge-warning" *ngIf="value==0" >Pending</span>
+                        <span class="badge badge-success" *ngIf="value==1">Complete</span>
+                        <span class="badge badge-danger" *ngIf="value==2">Cancel</span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column  [sortable]="false" *ngIf="checkScope('status_withdraw') == true" [draggable]="true" [resizeable]="true" name="Action" prop="status" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                      <span *ngIf="value == 0" >
+                        <a class="btn btn-sm btn-success" (click)="changeStatus(row.id, 1)">
+                          <span><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Send</span>
+                        </a>
+                        <a class="btn btn-sm btn-danger" (click)="changeStatus(row.id, 2)">
+                          <span>Cancel</span>
+                        </a>
+                      </span>
+                      <span *ngIf="value == 1 || value == 2" >
+                        <a class="btn btn-sm">
+                          <span>Complete</span>
+                        </a>
+                      </span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+              </ngx-datatable>
+      
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,170 @@
+<div class="header pb-8 pt-8 pt-md-8">
+    <div class="container-fluid">
+  
+    </div>
+  </div>
+  
+  <!-- Page content -->
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="row">
+            <div class="col">
+              <div class="card-header border-0">
+                <h3 class="mb-0">Send New SMS to Player</h3>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card-header border-0 left">
+                <button type="button" class="btn btn-sm btn-primary" >
+                  Send New SMS
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <form >
+                    <h4>Search</h4>
+                  <div class="row">
+                    <div class="col-sm-2">
+                      <label>From Date :</label>
+                      <input type="date" class="form-control"> 
+                    </div> 
+                    <div class="col-sm-2">
+                        <label>To date :</label>
+                        <input type="date" class="form-control"> 
+                      </div> 
+                    <div class="col-sm-2">
+                      <label>User Type :</label>
+                      <select name="game_type" class="form-control">
+                        <option [ngValue]="" selected>Active</option>
+                        <option [ngValue]="">Verified</option>
+                        <option [ngValue]="">All Users</option> 
+                      </select> 
+                    </div>                
+                    <div class="col-sm-2" style="margin-top: 30px;">
+                      <button type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Submit</button>  
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid" style="margin-top: 5px">
+            <h3>Players SMS List ( Total Records : 0)</h3>
+            <!-- <div class="row">
+              <div class="col-sm-4">
+                <div style="padding: 20px; background-color: #d8d3af;">
+                  <span style="color: green;">Total Won Amount :</span> Rs. 0.00/-
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div style="padding: 20px; background-color: #d8c6af;">
+                  <span style="color: red;">Total Won Amount :</span> Rs. 0.00/-
+                </div>
+              </div>
+            </div> -->
+          </div>
+
+         
+          <div class="row">
+            <div class="col">
+              <div class="card-sub-header border-0">
+                <label for="per-page">Show: </label>
+                <select id="per-page" (change)="onLimitChange($event.target.value)" > 
+                  <option *ngFor="let option of pageLimitOptions" [value]="option.value" [selected]="option.value == currentPageLimit">
+                    {{ option.value }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card-sub-header border-0 left">
+                <label for="search">Search: </label>
+                <input type="text" placeholder="Search...." class="search-input"/>
+              </div>
+            </div>
+          </div>
+
+        
+        
+          <div class="row">
+            <div class="col">
+              <ngx-datatable
+              class="bootstrap table table-striped"
+              [rows]="adminLogData"
+        
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [rowHeight]="'auto'"
+              [externalPaging]="true"
+              [externalSorting]="true"
+              [count]="page.count"
+              [offset]="page.offset"
+              [limit]="page.limit"
+              [sortType]="'single'"
+              (page)="pageCallback($event)"
+            
+              >
+                <ngx-datatable-column [draggable]="false" [resizeable]="false" name="S.No" [width]="10">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
+                    {{(page.offset*page.limit)+rowIndex+1}}
+                  </ng-template>
+                </ngx-datatable-column> <!-- (sort)="sortCallback($event)" -->
+  
+                <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Send Type" prop="TITLE" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Send Date" prop="action" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}">  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+              
+                <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Name" prop="login_device" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Username" prop="login_device" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Mobile" prop="login_device" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Message" prop="login_device" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [draggable]="false" [resizeable]="false" name="Response" prop="login_device" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+              </ngx-datatable>
+      
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+</div>

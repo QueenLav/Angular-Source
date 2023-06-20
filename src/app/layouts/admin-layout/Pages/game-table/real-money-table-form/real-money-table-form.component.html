@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{config.title}}</h4>
+    <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()"> 
+  
+      <div class="form-group">
+        <label for="game_id">Game Type:</label>
+        <select name="game_id" #gameType formControlName="game_id" (change)="gameTypeChange(gameType.value)" name="game_id" class="form-control">
+          <option *ngFor="let game of gameTypesData; let i = index" [value]="game.game_id">{{game.game_type}}</option>
+        </select> 
+        <span class="text-danger"
+          *ngIf="(form.controls.game_id.touched || submit) && form.controls.game_id.errors?.required"> 
+          Game Type is required
+        </span>
+      </div>   
+
+      <div class="form-group">
+        <label for="joker_type">Joker Type:</label>
+        <select name="joker_type" formControlName="joker_type" name="joker_type" class="form-control">
+          <option [value]="'joker'" selected> Joker</option>
+          <option [value]="'nojoker'" > No Joker</option>
+        </select> 
+      </div>   
+
+
+      <div class="form-group">
+        <label for="deck">Deck:</label>
+        <select name="deck" formControlName="deck" name="deck" class="form-control">
+          <option [value]="'1'" selected>1 Deck</option>
+          <option [value]="'2'">2 Deck</option>
+          <option [value]="'3'">3 Deck</option>
+        </select> 
+      </div>   
+  
+      <div class="form-group">
+        <label for="max_player">Max Player:</label> 
+        <select name="max_player" #maxPlayer formControlName="max_player" (change)="playerTypeChange(maxPlayer.value)" name="max_player" class="form-control">
+          <option *ngFor="let player of gameMaxPlayer; let i = index" [value]="player.max_player">{{player.max_player}}</option>
+        </select> 
+        <span class="text-danger"
+          *ngIf="(form.controls.max_player.touched || submit) && form.controls.max_player.errors?.required"> 
+          Max Player is required
+        </span>
+      </div>   
+  
+      <div class="form-group">
+        <label for="entry_fees">Entry Fees:</label>
+        <select name="entry_fees" formControlName="entry_fees" (change)="entryEntryChange(maxPlayer.value)" name="entry_fees" class="form-control">
+          <option *ngFor="let fees of gameEntryFees; let i = index" [value]="fees.entry_fees">{{fees.entry_fees}}</option>
+        </select> 
+        <span class="text-danger"
+          *ngIf="(form.controls.entry_fees.touched || submit) && form.controls.entry_fees.errors?.required"> 
+          Entry Fees is required
+        </span>
+      </div>   
+  
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+      </div>
+  
+    </form>
+  </div>
+    

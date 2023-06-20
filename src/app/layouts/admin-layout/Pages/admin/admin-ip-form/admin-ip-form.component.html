@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <h4 class="modal-title">&nbsp; {{config.title}}</h4><br>
+  <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="ipForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>IP Address:</label>
+          <input class="form-control" type="text" formControlName="ip_address" name="ip_address"> 
+          <span class="text-danger"
+            *ngIf="(ipForm.controls.ip_address.touched || submit) && ipForm.controls.ip_address.errors?.required"> 
+            Ip address is required
+          </span>
+          <span class="text-danger"
+            *ngIf="(ipForm.controls.ip_address.touched || submit) && ipForm.controls.ip_address.errors?.pattern"> 
+            Invalid IP address
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <button type="submit" class="btn btn-primary" style="margin-top: 32px">Submit</button> 
+      </div>
+    </div>
+    <p><small>(Please enter the ip to allow the support users to login. The support user not able to accest apart from this ip address entered above)</small></p>
+
+   <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">S.no</th>
+        <th scope="col">IP Address</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of ip_address_data; let i=index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{item.ip_address}}</td>
+        <td>
+          <a class="btn btn-sm btn-icon-only text-primary" (click)="editAdminIP(item, 'edit')">
+            <i class="fas fa-edit"></i>
+          </a>
+          <a class="btn btn-sm btn-icon-only text-danger" (click)="deleteAdminIP(item.id)">
+            <i class="fas fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  </form>
+</div>
+  

@@ -1,0 +1,135 @@
+<div class="header pb-8 pt-8 pt-md-8">
+  <div class="container-fluid">
+
+  </div>
+</div>
+  
+<!-- Page content -->
+<div class="container margin-nav">
+
+  <div class="sub-header">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow" style="padding: 10px;">
+          <div class="report-nav">
+            <h3 class="m-0 font-weight-500"><span class="text-muted"> Report  ➜ Admins </span>  ➜ Log History </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+
+        <!-- <div class="container-fluid"> -->
+          <div class="row">
+            <div class="col-sm-12">
+              <form [formGroup]="adminLogForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <!-- <div class="col-sm-3">
+                    <p>Admin:  <select name="admin_id" formControlName="admin_id" class="vertical-form-control" [(ngModel)]="admin_id">
+                      <option *ngFor="let admin of admins; let i = index" [ngValue]="admin.id">{{admin.username}}</option>
+                    </select> </p>
+                  </div>  -->
+                  <div class="col-sm-3">
+                    <p>From : <input type="date" class="vertical-form-control" formControlName="start_date" name="start_date" value="start_date | date:'yyyy-MM-dd'"> </p>
+                    <span class="text-danger"
+                      *ngIf="(adminLogForm.controls.start_date.touched || submit) && adminLogForm.controls.start_date.errors?.required"> 
+                      From date is required
+                    </span>
+                  </div> 
+                  <div class="col-sm-3">
+                    <p>To : <input type="date" class="vertical-form-control" formControlName="end_date" name="end_date" value="end_date | date:'yyyy-MM-dd'"> </p>
+                    <span class="text-danger"
+                      *ngIf="(adminLogForm.controls.end_date.touched || submit) && adminLogForm.controls.end_date.errors?.required"> 
+                      End date is required
+                    </span>  
+                  </div> 
+                  <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Submit</button>  
+                  </div>
+                </div> 
+              </form>
+            </div>
+          </div>
+        <!-- </div> -->
+
+        <div class="row">
+          <div class="col">
+            <div class="card-sub-header border-0">
+              <label for="per-page">Show: </label>
+              <select id="per-page" (change)="onLimitChange($event.target.value)" > 
+                <option *ngFor="let option of pageLimitOptions" [value]="option.value" [selected]="option.value == currentPageLimit">
+                  {{ option.value }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card-sub-header border-0 left">
+              <label for="search">Search: </label>
+              <input type="text" class="search-input" (keyup)="updateFilter($event)"/>
+            </div>
+          </div>
+        </div>
+      
+        <div class="row">
+          <div class="col">
+            <ngx-datatable  
+
+              [scrollbarH]="true"  
+              
+              class="material" 
+              [rows]="adminLogData"
+        
+              [columnMode]="'force'"
+              [headerHeight]="65"
+              [footerHeight]="50"
+              [rowHeight]="'auto'"
+              [externalPaging]="true"
+              [externalSorting]="true"
+              [count]="page.count"
+              [offset]="page.offset"
+              [limit]="page.limit"
+              [sortType]="'single'"
+              (page)="pageCallback($event)"
+          
+            >
+              <!-- <ngx-datatable-column [draggable]="false" [resizeable]="false" name="S.No" [width]="10">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
+                  {{(page.offset*page.limit)+rowIndex+1}}
+                </ng-template>
+              </ngx-datatable-column> -->  <!-- (sort)="sortCallback($event)" -->
+
+              <ngx-datatable-column [sortable]="false"  [draggable]="false" [resizeable]="false" name="IP" prop="location_ip" [width]="'auto'">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [sortable]="false"  [draggable]="false" [resizeable]="false" name="Action" prop="action" [width]="'auto'">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <div class="fixlen" title="{{value}}">  {{value}} </div>
+                </ng-template>
+              </ngx-datatable-column>
+            
+              <ngx-datatable-column [sortable]="false"  [draggable]="false" [resizeable]="false" name="Login Device" prop="login_device" [width]="'auto'">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                </ng-template>
+              </ngx-datatable-column>
+      
+              <ngx-datatable-column [sortable]="false"  [draggable]="false" [resizeable]="false" name="Date" prop="created_at" [width]="'auto'">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

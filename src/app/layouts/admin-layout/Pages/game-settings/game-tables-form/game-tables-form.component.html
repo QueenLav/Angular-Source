@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{config.title}}</h4>
+    <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()"> 
+
+        <!-- <div class="form-group">
+            <label for="match_type">Format:</label>
+            <select name="match_type" formControlName="match_type" class="form-control">
+                <option *ngFor="let matchType of matchTypeData; let i = index"  [ngValue]="matchType.id">{{matchType.name}}</option>
+            </select> 
+        </div>   -->
+
+        <div class="form-group">
+            <label for="game_type">Format Type:</label>
+            <select name="game_type" formControlName="game_type" class="form-control">
+                <option *ngFor="let gameTypes of gameTypesData; let i = index" [ngValue]="gameTypes.id">{{gameTypes.format_name}} - {{gameTypes.name}}</option>
+            </select> 
+        </div>  
+
+        <div class="form-group">
+            <label for="max_player">Sitting Capacity:</label>
+            <select name="max_player" formControlName="max_player" class="form-control">
+              <option *ngFor="let max_seat of max_seats; let i = index" [ngValue]="max_seat.seats">{{max_seat.seats}}</option>
+            </select> 
+        </div>  
+  
+        <div class="form-group">
+            <label>Entry Fees:</label>
+            <input class="form-control" type="number" formControlName="entry_fees" name="entry_fees">
+            <span class="text-danger"
+                *ngIf="(form.controls.entry_fees.touched || submit) && form.controls.entry_fees.errors?.required"> 
+                Entry Fees is required
+            </span>
+        </div>
+
+        <div class="form-group">
+          <label>Commission:</label>
+          <input class="form-control" type="number" formControlName="comm_per" name="comm_per">
+          <span class="text-danger"
+              *ngIf="(form.controls.comm_per.touched || submit) && form.controls.comm_per.errors?.required"> 
+              Commision is required
+          </span>
+      </div>
+  
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+      </div>
+  
+    </form>
+  </div>
+    

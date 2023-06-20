@@ -1,0 +1,175 @@
+<div class="header pb-8 pt-8 pt-md-8">
+    <div class="container-fluid">
+  
+    </div>
+  </div>
+    
+  <!-- Page content -->
+  <div class="container margin-nav">
+
+    <div class="sub-header">
+      <div class="row">
+        <div class="col">
+          <div class="card shadow" style="padding: 10px;">
+            <div class="report-nav">
+              <h3 class="m-0 font-weight-500"><span class="text-muted"> Report  ➜ Player's </span>  ➜ Kyc Verify Details </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+      
+          <!-- <div class="container-fluid"> -->
+            <div class="row">
+              <div class="col-sm-12">
+                <form [formGroup]="kycVerifyForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p>Form : <input type="date" class="vertical-form-control" formControlName="start_date" name="start_date" value="start_date | date:'yyyy-MM-dd'"> </p>
+                      <span class="text-danger"
+                        *ngIf="(kycVerifyForm.controls.start_date.touched || submit) && kycVerifyForm.controls.start_date.errors?.required"> 
+                        Form date is required
+                      </span>
+                    </div> 
+                    <div class="col-sm-3">
+                      <p>To : <input type="date" class="vertical-form-control" formControlName="end_date" name="end_date" value="end_date | date:'yyyy-MM-dd'"> </p>
+                      <span class="text-danger"
+                        *ngIf="(kycVerifyForm.controls.end_date.touched || submit) && kycVerifyForm.controls.end_date.errors?.required"> 
+                        End date is required
+                      </span>  
+                    </div> 
+                    <div class="col-sm-2">
+                      <button type="submit" class="btn btn-primary" style="padding: 8px 15px !important">Submit</button>  
+                    </div>
+                  </div> 
+                </form>
+              </div>
+            </div>
+          <!-- </div> -->
+  
+          <div class="row">
+            <div class="col">
+              <div class="card-sub-header border-0">
+                <label for="per-page">Show: </label>
+                <select id="per-page" (change)="onLimitChange($event.target.value)" > 
+                  <option *ngFor="let option of pageLimitOptions" [value]="option.value" [selected]="option.value == currentPageLimit">
+                    {{ option.value }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card-sub-header border-0 left">
+                <label for="search">Search: </label>
+                <input type="text" placeholder="Search..." class="search-input" (keyup)="updateFilter($event)"/>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col">
+              <ngx-datatable
+                class="material"
+                [rows]="kycVerifyData"
+          
+                [columnMode]="'force'"
+                [headerHeight]="95"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [externalPaging]="true"
+                [externalSorting]="true"
+                [count]="page.count"
+                [offset]="page.offset"
+                [limit]="page.limit"
+                [sortType]="'single'"
+                (page)="pageCallback($event)"
+            
+              >
+  
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Name" prop="name" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Username" prop="username" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}">  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+              
+              
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Email" prop="email" [width]="'200'">
+                    <ng-template ngx-datatable-header-template let-column="column">
+                      <span title="the tooltip">{{column.name}}</span><br/><span style="font-size: small;"> <b> <i class="fa fa-circle" style="color:darkblue">&nbsp;Verified</i></b><b>&nbsp;&nbsp;<i class="fa fa-circle" style="color:red">&nbsp;Not-verified</i></b></span>
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" [ngStyle]="{'color':row.email_verify_status == '1' ? 'darkblue' : 'red'}">  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+        
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Mobile No" prop="phone_no" [width]="'auto'">
+                    <ng-template ngx-datatable-header-template let-column="column">
+                      <span title="the tooltip">{{column.name}}</span><br/><span style="font-size: small;"> <b> <i class="fa fa-circle" style="color:darkblue">&nbsp;Verified</i></b><b>&nbsp;&nbsp;<i class="fa fa-circle" style="color:red">&nbsp;Not-verified</i></b></span>
+                    </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" [ngStyle]="{'color':row.phone_verify_status == '1' ? 'darkblue' : 'red'}">  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Pancard No" prop="pan_no" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Pan Proof File" prop="pc_file" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                      <button type="button" class="btn btn-outline-primary btn-sm cursor" (click)="downloadFile(row.id)"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;Download File</button>
+                    </ng-template>
+                </ngx-datatable-column>
+                
+                <ngx-datatable-column [sortable]="false" [draggable]="true" *ngIf="checkScope('status_kyc') == true" [resizeable]="true" name="Verification" prop="pc_verify_status" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <span class="badge badge-warning cursor" *ngIf="value==0" (click)="changeStatus(row.id)">Pending</span>
+                        <span class="badge badge-success" *ngIf="value==1">Verified</span>
+                        <span class="badge badge-danger" *ngIf="value==2">Rejected</span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="false" [draggable]="true" [resizeable]="true" name="Date" prop="pc_requested_on" [width]="'auto'">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                      <div class="fixlen" title="{{value}}" >  {{value}} </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                
+                <ngx-datatable-column  [sortable]="false" [draggable]="true" [resizeable]="true" name="Action" prop="pc_verify_status" [width]="'auto'">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <span *ngIf="value == 0" >
+                      <a class="btn btn-sm btn-success" (click)="verityForm(row)">
+                        <span>Verifiy Now</span>
+                      </a>
+                      <a class="btn btn-sm btn-danger" (click)="rejectForm(row)">
+                        <span>Reject</span>
+                      </a>
+                    </span>
+                    <span *ngIf="value == 1 || value == 2" >
+                      <a class="btn btn-sm">
+                        <span>Complete</span>
+                      </a>
+                    </span>
+                  </ng-template>
+              </ngx-datatable-column>
+
+              </ngx-datatable>
+      
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

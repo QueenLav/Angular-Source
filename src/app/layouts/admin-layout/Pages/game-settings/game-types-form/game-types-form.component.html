@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{config.title}}</h4>
+    <button type="button" class="close pull-right" (mousedown)="onClose()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()"> 
+  
+      <div class="form-group">
+        <label>Format Type:</label>
+        <input class="form-control" type="text" formControlName="name" name="name" [value]="form.get('name').value | titlecase">
+        <span class="text-danger"
+          *ngIf="(form.controls.name.touched || submit) && form.controls.name.errors?.required"> 
+          Format Type is required
+        </span>
+        <!-- <span class="text-danger"
+          *ngIf="(form.controls.name.touched || submit) && form.controls.name.errors?.minlength">
+          Your Format Type should contain atleast 3 characters
+        </span>
+        <span class="text-danger"
+          *ngIf="(form.controls.name.touched || submit) && form.controls.name.errors?.maxlength">
+          Maximum 26 characters are allowed
+        </span> -->
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" formControlName="description" name="description"></textarea>
+        <span class="text-danger"
+            *ngIf="(form.controls.description.touched || submit) && form.controls.description.errors?.required"> 
+            Description is required
+        </span>
+        <span class="text-danger"
+            *ngIf="(form.controls.description.touched || submit) && form.controls.description.errors?.minlength">
+            Your name should contain atleast 8 characters
+        </span>
+        <span class="text-danger"
+            *ngIf="(form.controls.description.touched || submit) && form.controls.description.errors?.maxlength">
+            Maximum 200 characters are allowed
+        </span>
+      </div>   
+  
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+      </div>
+  
+    </form>
+  </div>
+    

@@ -1,0 +1,27 @@
+.add_button{
+    margin: 10px;
+    float:right;
+}
+
+.ngx-datatable.material {
+    background: none !important;
+    box-shadow: none !important;
+} 
+
+.datatable-header {
+    border-bottom: none !important;
+    color: #8898aa !important;
+    background-color: #f6f9fc !important;
+    border-color: #e9ecef !important;
+}
+
+.container{
+    max-width: 1400px !important;
+}
+.ngx-datatable{
+  position: sticky;
+  top: var(--default-height);
+} 
+
+
+///enaku height vena width venum overflow
